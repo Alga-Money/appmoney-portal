@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="mt-2">
+    <div *ngFor="let account of accounts" class="mt-2">
+      <mat-card >
+        <mat-card-header>
+          <mat-card-title>{{account.name}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-actions>
+
+        </mat-card-actions>
+
+        <mat-card-footer>
+          <mat-divider></mat-divider>
+          <div>
+            <label>Saldo atual</label>
+            <label>R$</label>
+          </div>
+
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+</div>

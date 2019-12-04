@@ -1,13 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import {MatInputModule} from '@angular/material/input';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 @Component({
   selector: 'app-account-register',
   templateUrl: './account-register.component.html',
   styleUrls: ['./account-register.component.css']
 })
 export class AccountRegisterComponent implements OnInit {
+  private frmAccount: FormGroup;
+  typeOfAccounts: [];
 
-  constructor() { }
+  constructor(private fb: FormBuilder) {
+    this.frmAccount = this.fb.group({
+      name: [null, Validators.required],
+      typeOfAccount: [null, Validators.required]
+    });
+  }
 
   ngOnInit() {
   }
