@@ -12,7 +12,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import {AccountModule} from "./account/account.module";
 import {MatInputModule} from '@angular/material/input';
-import {RouterModule} from "@angular/router";
+import { RouterModule, Routes } from '@angular/router';
+import {ROUTES} from './routes';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +32,7 @@ import {RouterModule} from "@angular/router";
     MatListModule,
     MatInputModule,
     AccountModule,
-    RouterModule
+    RouterModule.forRoot(ROUTES)
   ],
   providers: [],
   bootstrap: [AppComponent]
