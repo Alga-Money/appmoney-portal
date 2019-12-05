@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/*import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpResponse, HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
@@ -80,4 +80,4 @@ export class HttpService {
   }
 
 
-}
+}*/

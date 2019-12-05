@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 
 export interface Account {
@@ -17,9 +18,13 @@ export class ListAccountsComponent implements OnInit {
   accounts: Account[] = [
     {name: 'Carteira'}, {name: 'Basa'}, {name: 'Poupança'}
     ];
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  navigatoToCreateAccount(){
+    this.router.navigateByUrl('/create-account');
   }
 
 }

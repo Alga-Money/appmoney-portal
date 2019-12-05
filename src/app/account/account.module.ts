@@ -7,19 +7,23 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatSelectModule} from '@angular/material/select';
 import { ListAccountsComponent } from './list-accounts/list-accounts.component';
 import {MatDividerModule} from "@angular/material/divider";
-
+import {MatInputModule} from '@angular/material/input';
+import { AccountTypeComponent } from './account-type/account-type.component';
+import {MatIconModule} from '@angular/material';
 
 
 
 @NgModule({
-  declarations: [AccountRegisterComponent, ListAccountsComponent],
+  declarations: [AccountRegisterComponent, ListAccountsComponent, AccountTypeComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
     MatCardModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatDividerModule
+    MatDividerModule,
+    MatInputModule,
+    MatIconModule
   ],
 })
 export class AccountModule { }
