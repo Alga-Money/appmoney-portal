@@ -14,6 +14,7 @@ import {AccountModule} from "./account/account.module";
 import {MatInputModule} from '@angular/material/input';
 import { RouterModule, Routes } from '@angular/router';
 import {ROUTES} from './routes';
+import { CategoryModule } from './category/category.module';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import {ROUTES} from './routes';
     MatListModule,
     MatInputModule,
     AccountModule,
+    CategoryModule,
     RouterModule.forRoot(ROUTES)
   ],
   providers: [],

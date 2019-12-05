@@ -10,8 +10,12 @@ import {MatDividerModule} from "@angular/material/divider";
 import {MatInputModule} from '@angular/material/input';
 import { AccountTypeComponent } from './account-type/account-type.component';
 import {MatIconModule} from '@angular/material';
+import { RouterModule, Routes } from '@angular/router';
 
 
+const routes: Routes = [
+  {path: 'create-account/create-account-type', component: AccountTypeComponent}
+];
 
 @NgModule({
   declarations: [AccountRegisterComponent, ListAccountsComponent, AccountTypeComponent],
@@ -23,7 +27,8 @@ import {MatIconModule} from '@angular/material';
     MatSelectModule,
     MatDividerModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    RouterModule.forChild(routes)
   ],
 })
 export class AccountModule { }
