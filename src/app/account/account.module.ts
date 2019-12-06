@@ -11,6 +11,7 @@ import {MatInputModule} from '@angular/material/input';
 import { AccountTypeComponent } from './account-type/account-type.component';
 import {MatIconModule} from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
+import {MatButtonModule} from '@angular/material/button';
 
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
     MatDividerModule,
     MatInputModule,
     MatIconModule,
+    MatButtonModule,
     RouterModule.forChild(routes)
   ],
 })
