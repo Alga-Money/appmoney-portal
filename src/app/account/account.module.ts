@@ -12,6 +12,8 @@ import { AccountTypeComponent } from './account-type/account-type.component';
 import {MatIconModule} from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {AccountService} from './account.service';
 
 
 const routes: Routes = [
@@ -30,7 +32,9 @@ const routes: Routes = [
     MatInputModule,
     MatIconModule,
     MatButtonModule,
+    MatSlideToggleModule,
     RouterModule.forChild(routes)
   ],
+  providers: [AccountService],
 })
 export class AccountModule { }

@@ -1,83 +1,69 @@
-/*import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpResponse, HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import {HttpHeaders, HttpResponse, HttpClient, HttpParams, HttpErrorResponse, HttpHandler} from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-
-import 'rxjs/operators/map';
-import 'rxjs/operators/catch';
-import 'rxjs/operators/delay';
-import 'rxjs/operators/do';
-
-import {Observable, throwError} from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 
 @Injectable()
-export class HttpService {
-  constructor(private http: HttpClient) { }
+export class HttpService extends HttpClient {
+
+
+  constructor(handler: HttpHandler) {
+    super(handler);
+  }
+
   private handleError(error: HttpErrorResponse) {
     console.error(error);
-    return Observable.throwError(error || '500 internal server error');
+    return throwError(error || '500 internal server error');
   }
 
   public getBaseUrl() {
     return environment.apiUrl;
   }
-
-  httpGet(path, token, params?: HttpParams) {
-    let headers = null;
-    let param = null;
-    if (token !== null) {
-      headers = new HttpHeaders().set('token', token);
-    }
-    if (params) {
-      param = params;
-    }
-    return this.http
-      .get(environment.apiUrl + path, { headers: headers, params: param })
-      .catch(this.handleError);
+  public delete<T>(url: string, options?: any): Observable<T> {
+    return this.makeRequisition<T>(() => super.delete<T>(url, options));
   }
 
-  httpPost(path, body, token) {
-    const data = JSON.stringify(body);
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    if (token !== null) {
-      headers = headers.append('token', token);
-    }
-    const options = { headers: headers };
-
-    return this.http
-      .post(environment.apiUrl + path, data, options)
-      .map((response: HttpResponse<any>) => response)
-      .catch(this.handleError);
+  public patch<T>(url: string, body: any, options?: any): Observable<T> {
+    return this.makeRequisition<T>(() => super.patch<T>(url, options));
   }
 
-  httpPut(path, body, token) {
-    const data = JSON.stringify(body);
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    if (token !== null) {
-      headers = headers.append('token', token);
-    }
-    const options = { headers: headers };
-    return this.http
-      .put(environment.apiUrl + path, data, options)
-      .catch(this.handleError);
+  public head<T>(url: string, options?: any): Observable<T> {
+    return this.makeRequisition<T>(() => super.head<T>(url, options));
   }
 
-  httpDelete(path, token, params?: HttpParams) {
-    let headers: HttpHeaders = new HttpHeaders();
-    let param = null;
-    headers = headers.append('Content-Type', 'application/json');
-    if (token !== null) {
-      headers = headers.append('token', token);
-    }
-    if (params) {
-      param = params;
-    }
-    const options = { headers: headers, params: param };
-    return this.http
-      .delete(environment.apiUrl + path, options)
-      .catch(this.handleError);
+  public options<T>(url: string, options?: any): Observable<T> {
+    return this.makeRequisition<T>(() => super.options<T>(url, options));
   }
 
+  public get<T>(url: string, options?: any): Observable<T> {
+    return this.makeRequisition<T>(() => super.get<T>(url, options));
+  }
 
-}*/
+  public post<T>(url: string, body: any, options?: any): Observable<T> {
+    return this.makeRequisition<T>(() => super.post<T>(url, body, options));
+  }
+
+  public put<T>(url: string, body: any, options?: any): Observable<T> {
+    return this.makeRequisition<T>(() => super.put<T>(url, body, options));
+  }
+
+  private makeRequisition<T>(fn: Function): Observable<T> {
+    // if (this.auth.isAccessTokenInvalido()) {
+    //   console.log('Requisição HTTP com access token inválido. Obtendo novo token...');
+    //
+    //   const chamadaNovoAccessToken = this.auth.obterNovoAccessToken()
+    //     .then(() => {
+    //       if (this.auth.isAccessTokenInvalido()) {
+    //         throw new NotAuthenticatedError();
+    //       }
+    //
+    //       return fn().toPromise();
+    //     });
+    //
+    //   return observableFromPromise(chamadaNovoAccessToken);
+    // } else {
+      return fn();
+    // }
+  }
+
+}

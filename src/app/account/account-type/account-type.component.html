@@ -6,8 +6,8 @@
 <div class="container">
   <form [formGroup]="frmAccountType">
     <div class="form-group">
-        <mat-card >
-            <div class="row">
+      <mat-card>
+        <div class="row">
           <div class="col-md-12">
             <mat-form-field class="inputMat">
               <input
@@ -18,18 +18,29 @@
                 required
               />
               <mat-error *ngIf="frmAccountType.get('name').hasError('required')">
-                {{ staticmsgs.obrigatoryRegister }}</mat-error> 
+                {{ staticmsgs.obrigatoryRegister }}</mat-error>
             </mat-form-field>
           </div>
+          <div class="col-md-12">
+            <mat-slide-toggle
+              value
+              formControlName="isActive"
+              class="example-margin"
+              [color]="color"
+              [checked]="checked"
+              [disabled]="disabled">
+              Desativar Conta
+            </mat-slide-toggle>
+          </div>
         </div>
-          <div class="row">
-            <div class="text-center">
-                <div class="col-md-12">
-                    <button class="btn btn-primary">Gravar</button>
-                  </div>
+        <div class="row">
+          <div class="text-center">
+            <div class="col-md-12">
+              <button class="btn btn-primary" (click)="gravar()">Gravar</button>
             </div>
           </div>
-        </mat-card>
+        </div>
+      </mat-card>
     </div>
   </form>
 </div>

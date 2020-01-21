@@ -15,7 +15,8 @@ import {MatInputModule} from '@angular/material/input';
 import { RouterModule, Routes } from '@angular/router';
 import {ROUTES} from './routes';
 import { CategoryModule } from './category/category.module';
-
+import {HttpService} from './shared/services/http-service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CategoryModule } from './category/category.module';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     LayoutModule,
     MatToolbarModule,
@@ -36,7 +38,7 @@ import { CategoryModule } from './category/category.module';
     CategoryModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [],
+  providers: [HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
