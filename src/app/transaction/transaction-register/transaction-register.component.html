@@ -1,0 +1,12 @@
+<div class="container">
+  <form formGroup="frmTransaction"></form>
+  <div >
+    <mat-form-field>
+      <input class="form-control" matInput type="text" placeholder="Descrição"
+             formControlName="description" required >
+
+      <mat-error *ngIf="frmTransaction.get('description').hasError('required')">
+        {{frmTransaction.obrigatoryRegister}}</mat-error>
+    </mat-form-field>
+  </div>
+</div>
