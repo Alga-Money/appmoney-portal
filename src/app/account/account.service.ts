@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import {HttpService} from '../shared/services/http-service';
-import {AccountType} from '../core/model';
+import {AccountType, Account} from '../core/model';
 import {environment} from '../../environments/environment';
 
 @Injectable()
 export class AccountService {
   accountTypesUrl: string;
+  accountUrl: string;
 
   constructor(private http: HttpService) {
     this.accountTypesUrl = `${environment.apiUrl}/account-types`;
+    this.accountUrl      =  `${environment.apiUrl}/accounts`;
   }
 
 
@@ -17,9 +19,25 @@ export class AccountService {
       .toPromise();
    }
 
-   getAll(): Promise<AccountType> {
+
+  registerAccount(data: any): Promise<Account> {
+    return this.http.post<Account>(this.accountUrl, data)
+      .toPromise();
+  }
+
+   getAllAcountTypes(): Promise<AccountType[]> {
      return this.http.get<any>(this.accountTypesUrl)
        .toPromise()
-       .then(response => response.content);
+       .then(response => response.data);
    }
+
+  getAllAcounts(): Promise<Account[]> {
+    return this.http.get<any>(this.accountUrl)
+      .toPromise()
+      .then(response => {
+        return response.data;
+      });
+  }
+
+
 }

@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
-
-
-export interface Account {
-  name: string;
-}
+import {AccountService} from '../account.service';
+import {tryCatch} from 'rxjs/internal-compatibility';
+import {Account} from '../../core/model';
 
 @Component({
   selector: 'app-list-accounts',
@@ -15,16 +13,28 @@ export interface Account {
 
 
 export class ListAccountsComponent implements OnInit {
-  accounts: Account[] = [
-    {name: 'Carteira'}, {name: 'Basa'}, {name: 'Poupança'}
-    ];
-  constructor(private router: Router) { }
+  listAccounts: Account[];
+
+  constructor(private router: Router,
+              private  accountService: AccountService) { }
 
   ngOnInit() {
+    this.listAccounts = [];
+    this.getData();
   }
 
-  navigatoToCreateAccount(){
+  navigatoToCreateAccount() {
     this.router.navigateByUrl('/create-account');
+  }
+
+  async getData() {
+    try {
+      this.listAccounts = await this.accountService.getAllAcounts();
+      console.log(`Zica`);
+      console.error(this.listAccounts);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
 }

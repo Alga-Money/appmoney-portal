@@ -12,15 +12,20 @@ export class TransactionRegisterComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               ) {
-    this.frmTransaction = this.fb.group({
-      description: [null, Validators.required],
-      type: [null, Validators.required],
-      status: [null, Validators.required]
-      }
-    );
   }
 
   ngOnInit() {
+    this.frmTransaction = this.fb.group({
+        description: [null, Validators.required],
+        note: [null, null],
+        type: [null, Validators.required],
+        status: [null, Validators.required],
+        paymentDate: [null, null],
+        dueDate: [null, null],
+        transactionValue:[null, null],
+        paymentValue:[null, null]
+      }
+    );
   }
 
 }

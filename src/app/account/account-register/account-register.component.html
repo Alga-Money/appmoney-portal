@@ -3,40 +3,78 @@
     Cadastrar Conta
   </div>
   <form [formGroup]="frmAccount" >
-    <div>
-      <mat-card >
-        <div class="row text-center">
+    <div style="background-color: aquamarine;" class="form-group">
+      <mat-card style="background-color: blue;" >
+        <div style="background-color: blueviolet;" class="example-container">
 
-          <div class="col-12 ">
+          <div >
             <mat-form-field>
-              <input matInput type="text" placeholder="Nome da conta!"
-                     formControlName="name" required >
-              <mat-error *ngIf="frmAccount.get('typeOfAccount').hasError('required')">
+              <input class="form-control" matInput type="text" placeholder="Nome da conta!"
+                     formControlName="description" required >
+              <mat-error *ngIf="frmAccount.get('description').hasError('required')">
                 {{staticmsgs.obrigatoryRegister}}</mat-error>
             </mat-form-field>
           </div>
 
-          <div>
+          <div class="col-12">
             <mat-form-field>
               <mat-label>Tipo da conta</mat-label>
-              <mat-select  required >
-                <mat-option *ngFor="let typeOFAccount of typeOfAccounts" [value]="typeOFAccount.name">
+              <mat-select formControlName="accountTypeId"  required >
+                <mat-option  *ngFor="let typeOFAccount of typeOfAccounts" [value]="typeOFAccount.id">
                   {{typeOFAccount.name}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="frmAccount.get('typeOfAccount').hasError('required')">
+              <mat-error *ngIf="frmAccount.get('accountTypeId').hasError('required')">
                 {{staticmsgs.obrigatoryRegister}}</mat-error>
             </mat-form-field>
             <a mat-flat-button [routerLink]="['create-account-type']">
               <mat-icon aria-hidden="false">add</mat-icon>
-            </a> 
-           
+            </a>
+
+          </div>
+
+          <div >
+            <div class="col-6">
+              <mat-slide-toggle
+                value
+                formControlName="includeDashboard"
+                [color]="color"
+                [checked]="checked"
+                [disabled]="disabled">
+                Incluir Dashboard
+              </mat-slide-toggle>
+            </div>
+            <div class="col-6">
+            <mat-slide-toggle
+              value
+              formControlName="ignoreOverallBalance"
+              [color]="color"
+              [checked]="checked"
+              [disabled]="disabled">
+              Ignorar em Totais
+            </mat-slide-toggle>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <mat-form-field class="inputMat">
+              <input
+                matInput
+                type="number"
+                placeholder="Saldo "
+                formControlName="openingBalance"
+                required
+              />
+              <mat-error *ngIf="frmAccount.get('openingBalance').hasError('required')">
+                {{ staticmsgs.obrigatoryRegister }}</mat-error>
+            </mat-form-field>
+
           </div>
 
         </div>
 
         <div class="text-center">
-          <button mat-flat-button color="primary">Gravar</button>
+          <button mat-flat-button (click)="save()" color="primary">Gravar</button>
         </div>
 
       </mat-card>

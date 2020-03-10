@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {StaticMessages} from '../../shared/services/static-messages';
 import {AccountService} from '../account.service';
-import {AccountType} from '../../core/model';
 
 @Component({
   selector: 'app-account-type',
@@ -39,8 +38,7 @@ export class AccountTypeComponent implements OnInit {
   }
 
   gravar() {
-    console.log(this.frmAccountType);
-    if (this.frmAccountType.valid) {
+    if (this.frmAccountType.value) {
         this.accountService.register(this.frmAccountType.value)
           .then(response => {
             // mensagem de sucesso
