@@ -12,7 +12,6 @@ import { CategoryModule } from './category/category.module';
 import {HttpService} from './shared/services/http-service';
 import {HttpClientModule} from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { AuthComponent } from './auth/auth.component';
 import {TransactionModule} from './transaction/transaction.module';
 import {AngularMaterialModule} from './angular-material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -21,7 +20,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   declarations: [
     AppComponent,
     MainHeaderComponent,
-    AuthComponent
   ],
   imports: [
     BrowserModule,
