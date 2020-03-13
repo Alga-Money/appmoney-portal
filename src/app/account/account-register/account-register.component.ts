@@ -49,7 +49,6 @@ export class AccountRegisterComponent implements OnInit {
 
 
   save(): void {
-
     this.frmAccount.patchValue({
       userId: 1,
       // formControlName2: myValue2 (can be omitted)

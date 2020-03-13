@@ -17,3 +17,17 @@ export class AccountType {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export class Transaction {
+ description: string;
+ note: string;
+ type: number;
+ status: number;
+ paymentDate: Date;
+ dueDate: Date;
+ transactionValue: number;
+ paymentValue: number;
+ accountId: number;
+ userId: number;
+ categoryId: number;
+}

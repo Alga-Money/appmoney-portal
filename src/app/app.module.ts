@@ -15,7 +15,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AuthComponent } from './auth/auth.component';
 import {TransactionModule} from './transaction/transaction.module';
 import {AngularMaterialModule} from './angular-material.module';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
@@ -35,7 +34,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     NgbModule,
     RouterModule.forRoot(ROUTES),
     AngularMaterialModule,
-    FlexLayoutModule,
     FormsModule, ReactiveFormsModule
   ],
   providers: [HttpService],
