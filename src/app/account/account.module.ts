@@ -15,6 +15,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [AccountRegisterComponent, ListAccountsComponent, AccountTypeComponent],
+  exports:[AccountRegisterComponent, ListAccountsComponent, AccountTypeComponent],
   imports: [
     CommonModule,
     AngularMaterialModule,

@@ -18,11 +18,12 @@ export class AccountRegisterComponent implements OnInit {
   disabled = false;
 
   staticmsgs = StaticMessages;
-  private frmAccount: FormGroup;
   typeOfAccounts: AccountType[] ;
 
   constructor(private fb: FormBuilder,
-              private  accountService: AccountService) {
+              private  accountService: AccountService,
+              private frmAccount: FormGroup
+              ) {
     this.frmAccount = this.fb.group({
       description: [null, Validators.required],
       color: [null],
