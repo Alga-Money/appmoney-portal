@@ -22,7 +22,7 @@ export class AccountRegisterComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private  accountService: AccountService,
-              private frmAccount: FormGroup
+              public frmAccount: FormGroup
               ) {
     this.frmAccount = this.fb.group({
       description: [null, Validators.required],

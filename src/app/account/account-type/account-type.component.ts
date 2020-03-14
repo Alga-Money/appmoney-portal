@@ -14,7 +14,7 @@ export class AccountTypeComponent implements OnInit {
   checked = false;
   disabled = false;
 
-  private frmAccountType: FormGroup;
+  public frmAccountType: FormGroup;
   staticmsgs = StaticMessages;
 
   constructor(private fb: FormBuilder,
