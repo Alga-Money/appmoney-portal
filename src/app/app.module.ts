@@ -15,11 +15,13 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TransactionModule} from './transaction/transaction.module';
 import {AngularMaterialModule} from './angular-material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AuthComponent} from './auth/auth.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainHeaderComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
