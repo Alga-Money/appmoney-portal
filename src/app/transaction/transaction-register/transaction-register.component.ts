@@ -12,11 +12,11 @@ import {CategoryService} from '../../category/category.service';
 export class TransactionRegisterComponent implements OnInit {
   listCategory: any;
   staticmsgs = StaticMessages;
-  private frmTransaction: FormGroup;
+  public frmTransaction: FormGroup;
 
   constructor(private fb: FormBuilder,
               private service: TransactionService,
-              private serviceCategory:CategoryService
+              private serviceCategory: CategoryService
   ) {
   }
 
