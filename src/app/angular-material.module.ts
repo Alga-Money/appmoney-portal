@@ -11,14 +11,17 @@ import {
   MatGridListModule,
   MatFormFieldModule,
   MatInputModule,
-  MatSelectModule,
   MatRadioModule,
   MatDatepickerModule,
   MatNativeDateModule,
   MatChipsModule,
   MatTooltipModule,
   MatTableModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatCardModule,
+  MatSlideToggleModule,
+  MatTabsModule,
+  MatSelectModule
 } from '@angular/material';
 
 @NgModule({
@@ -40,7 +43,10 @@ import {
     MatChipsModule,
     MatTooltipModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatCardModule,
+    MatSlideToggleModule,
+    MatTabsModule,
   ],
   exports: [
     MatButtonModule,
@@ -58,7 +64,11 @@ import {
     MatChipsModule,
     MatTooltipModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatCardModule,
+    MatSlideToggleModule,
+    MatTabsModule,
+    MatSelectModule
   ],
   providers: [
     MatDatepickerModule,

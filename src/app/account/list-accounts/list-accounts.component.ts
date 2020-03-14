@@ -30,8 +30,6 @@ export class ListAccountsComponent implements OnInit {
   async getData() {
     try {
       this.listAccounts = await this.accountService.getAllAcounts();
-      console.log(`Zica`);
-      console.error(this.listAccounts);
     } catch (e) {
       console.error(e);
     }

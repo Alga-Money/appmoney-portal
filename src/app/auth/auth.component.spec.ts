@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListCategoryComponent } from './list-category.component';
+import { AuthComponent } from './auth.component';
 
-describe('ListCategoryComponent', () => {
-  let component: ListCategoryComponent;
-  let fixture: ComponentFixture<ListCategoryComponent>;
+describe('AuthComponent', () => {
+  let component: AuthComponent;
+  let fixture: ComponentFixture<AuthComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListCategoryComponent ]
+      declarations: [ AuthComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListCategoryComponent);
+    fixture = TestBed.createComponent(AuthComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

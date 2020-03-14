@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TransactionService} from '../transaction.service';
 import {StaticMessages} from '../../shared/services/static-messages';
+import {CategoryService} from '../../category/category.service';
 
 @Component({
   selector: 'app-transaction-register',
@@ -9,11 +10,13 @@ import {StaticMessages} from '../../shared/services/static-messages';
   styleUrls: ['./transaction-register.component.css']
 })
 export class TransactionRegisterComponent implements OnInit {
+  listCategory: any;
   staticmsgs = StaticMessages;
   private frmTransaction: FormGroup;
 
   constructor(private fb: FormBuilder,
-              private service: TransactionService
+              private service: TransactionService,
+              private serviceCategory:CategoryService
   ) {
   }
 
@@ -33,6 +36,14 @@ export class TransactionRegisterComponent implements OnInit {
 
       }
     );
+
+    this.getCategories();
+  }
+
+
+
+  async  getCategories() {
+    this.listCategory =     await this.serviceCategory.getCategories();
   }
 
 
