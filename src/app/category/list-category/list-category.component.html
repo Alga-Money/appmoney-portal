@@ -1,12 +1,20 @@
-<mat-tab-group dynamicHeight>
-        <mat-tab label="DESPESAS">
-          <div class="example-small-box mat-elevation-z4">
-            Small content
-          </div>
-        </mat-tab>
-        <mat-tab label="RECEITAS">
-          <div class="example-large-box mat-elevation-z4">
-            Large content
-          </div>
-        </mat-tab>
-</mat-tab-group>
+<div class="container">
+  <div class="mt-2">
+    <div *ngFor="let category of  listCategories"  class="mt-2">
+      <mat-card >
+        <mat-card-header>
+          <mat-card-title>
+            {{category.description}}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <button class="fabButton mt-2" (click)="navigatoToCreateAccount()" mat-fab color="primary">
+      <mat-icon aria-hidden="false">add</mat-icon>
+    </button>
+
+  </div>
+</div>

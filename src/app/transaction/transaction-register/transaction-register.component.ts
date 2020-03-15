@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TransactionService} from '../transaction.service';
 import {StaticMessages} from '../../shared/services/static-messages';
 import {CategoryService} from '../../category/category.service';
+import {Account} from '../../core/model';
+import {AccountService} from '../../account/account.service';
 
 @Component({
   selector: 'app-transaction-register',
@@ -11,12 +13,14 @@ import {CategoryService} from '../../category/category.service';
 })
 export class TransactionRegisterComponent implements OnInit {
   listCategory: any;
+  listAccounts: any;
   staticmsgs = StaticMessages;
   public frmTransaction: FormGroup;
 
   constructor(private fb: FormBuilder,
               private service: TransactionService,
-              private serviceCategory: CategoryService
+              private serviceCategory: CategoryService,
+              private serviceAccount: AccountService
   ) {
   }
 
@@ -38,6 +42,7 @@ export class TransactionRegisterComponent implements OnInit {
     );
 
     this.getCategories();
+    this.getAccounts();
   }
 
 
@@ -46,6 +51,9 @@ export class TransactionRegisterComponent implements OnInit {
     this.listCategory =     await this.serviceCategory.getCategories();
   }
 
+  async getAccounts() {
+    this.listAccounts = await  this.serviceAccount.getAllAcounts();
+  }
 
   save() {
     this.frmTransaction.patchValue({
@@ -57,7 +65,10 @@ export class TransactionRegisterComponent implements OnInit {
     });
     if (this.frmTransaction.valid) {
       this.service.register(this.frmTransaction.value)
-        .then(response => console.log(response))
+        .then(response => {
+          debugger;
+          console.log(response)}
+          )
         .catch(error => console.log(error));
     }
   }

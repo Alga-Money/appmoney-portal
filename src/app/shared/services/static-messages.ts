@@ -1,3 +1,10 @@
 export const StaticMessages = {
-  obrigatoryRegister: 'Registro Obrigatório'
+
+  obrigatoryRegister: 'Registro Obrigatório',
+
+
+
+  success: 'Sucesso',
+  dataSaved: 'Registros gravados com sucesso!',
+  error: 'Erro',
 };

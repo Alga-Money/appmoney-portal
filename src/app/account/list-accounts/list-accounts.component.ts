@@ -24,7 +24,12 @@ export class ListAccountsComponent implements OnInit {
   }
 
   navigatoToCreateAccount() {
-    this.router.navigateByUrl('/create-account');
+    this.router.navigateByUrl("/create-account");
+  }
+
+  navigatoToEditAccount(idAccount) {
+    debugger
+    this.router.navigate(["/edit-account", idAccount]);
   }
 
   async getData() {

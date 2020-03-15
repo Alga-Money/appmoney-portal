@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {StaticMessages} from '../../shared/services/static-messages';
-import { Routes } from '@angular/router';
 import {AccountService} from '../account.service';
 import {Account, AccountType} from '../../core/model';
+import {MatSnackBar} from '@angular/material';
+import {SnackBarService} from '../../shared/services/snack-bar.service';
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -17,13 +19,17 @@ export class AccountRegisterComponent implements OnInit {
   checked = false;
   disabled = false;
 
+  private account: any;
+
+  public frmAccount: FormGroup;
   staticmsgs = StaticMessages;
-  typeOfAccounts: AccountType[] ;
+  typeOfAccounts: AccountType[];
 
   constructor(private fb: FormBuilder,
               private  accountService: AccountService,
-              public frmAccount: FormGroup
-              ) {
+              private snackBarService: SnackBarService,
+              private route: ActivatedRoute,
+  ) {
     this.frmAccount = this.fb.group({
       description: [null, Validators.required],
       color: [null],
@@ -31,12 +37,19 @@ export class AccountRegisterComponent implements OnInit {
       openingBalance: [null, Validators.required],
       ignoreOverallBalance: [null, Validators.required],
       accountTypeId: [null, Validators.required],
-      userId:[null]
+      userId: [null]
     });
   }
 
   ngOnInit() {
     this.fetchData();
+
+    debugger
+    const paramId = this.route.params;
+
+    if(paramId){
+      console.log(paramId);
+    }
   }
 
   fetchData() {
@@ -52,13 +65,22 @@ export class AccountRegisterComponent implements OnInit {
   save(): void {
     this.frmAccount.patchValue({
       userId: 1,
+      color: '',
+      ignoreOverallBalance: false
       // formControlName2: myValue2 (can be omitted)
     });
-    console.log(this.frmAccount.value);
+
     if (this.frmAccount.valid) {
       this.accountService.registerAccount(this.frmAccount.value)
-        .then( response => console.log(response))
-        .catch(error => console.log(error));
+        .then(response => {
+            console.log(response);
+            //this.frmAccount.reset
+            this.snackBarService.openSnackBar(this.staticmsgs.success, this.staticmsgs.dataSaved);
+          }
+        )
+        .catch(error => {
+          console.error(error);
+        });
     }
   }
 

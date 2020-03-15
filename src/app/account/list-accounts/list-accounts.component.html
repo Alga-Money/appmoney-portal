@@ -1,7 +1,7 @@
 <div class="container">
   <div class="mt-2">
-    <div *ngFor="let account of  listAccounts">
-      <mat-card >
+    <div *ngFor="let account of  listAccounts"  class="mt-2">
+      <mat-card (click)="navigatoToEditAccount(account.id)" >
         <mat-card-header>
           <mat-card-title>
             {{account.description}}

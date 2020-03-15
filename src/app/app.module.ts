@@ -16,6 +16,7 @@ import {TransactionModule} from './transaction/transaction.module';
 import {AngularMaterialModule} from './angular-material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthComponent} from './auth/auth.component';
+import {SnackBarService} from './shared/services/snack-bar.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import {AuthComponent} from './auth/auth.component';
     AngularMaterialModule,
     FormsModule, ReactiveFormsModule
   ],
-  providers: [HttpService],
+  providers: [HttpService, SnackBarService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
