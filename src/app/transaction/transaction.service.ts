@@ -10,7 +10,7 @@ export class TransactionService {
   transactionUrl: string;
 
   constructor(private http: HttpService) {
-    this.transactionUrl      =  `${environment.apiUrl}/transactions`;
+    this.transactionUrl      =  `transactions`;
   }
 
 

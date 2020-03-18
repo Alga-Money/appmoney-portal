@@ -20,27 +20,27 @@ export class HttpService extends HttpClient {
     return environment.apiUrl;
   }
   public delete<T>(url: string, options?: any): Observable<T> {
-    return this.makeRequisition<T>(() => super.delete<T>(url, options));
+    return this.makeRequisition<T>(() => super.delete<T>(`${this.getBaseUrl()}/${url}`, options));
   }
 
   public patch<T>(url: string, body: any, options?: any): Observable<T> {
-    return this.makeRequisition<T>(() => super.patch<T>(url, options));
+    return this.makeRequisition<T>(() => super.patch<T>(`${this.getBaseUrl()}/${url}`, options));
   }
 
   public head<T>(url: string, options?: any): Observable<T> {
-    return this.makeRequisition<T>(() => super.head<T>(url, options));
+    return this.makeRequisition<T>(() => super.head<T>(`${this.getBaseUrl()}/${url}`, options));
   }
 
   public options<T>(url: string, options?: any): Observable<T> {
-    return this.makeRequisition<T>(() => super.options<T>(url, options));
+    return this.makeRequisition<T>(() => super.options<T>(`${this.getBaseUrl()}/${url}`, options));
   }
 
   public get<T>(url: string, options?: any): Observable<T> {
-    return this.makeRequisition<T>(() => super.get<T>(url, options));
+    return this.makeRequisition<T>(() => super.get<T>(`${this.getBaseUrl()}/${url}`, options));
   }
 
   public post<T>(url: string, body: any, options?: any): Observable<T> {
-    return this.makeRequisition<T>(() => super.post<T>(url, body, options));
+    return this.makeRequisition<T>(() => super.post<T>(`${this.getBaseUrl()}/${url}`, body, options));
   }
 
   public put<T>(url: string, body: any, options?: any): Observable<T> {

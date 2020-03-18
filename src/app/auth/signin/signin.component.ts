@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {StaticMessages} from '../../shared/services/static-messages';
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-signin',
@@ -15,7 +16,8 @@ export class SigninComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private authService: AuthService) {
 
   }
 
@@ -24,6 +26,15 @@ export class SigninComponent implements OnInit {
       email: [null, Validators.required],
       password: [null, Validators.required]
     });
+  }
+
+
+
+  login():void {
+    debugger
+    let token =    this.authService.login({user:'luiz',pwd:'123'});
+    this.router.navigateByUrl('/accounts');
+    console.log(token);
   }
 
 }

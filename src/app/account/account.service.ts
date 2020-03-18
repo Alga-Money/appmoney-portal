@@ -9,8 +9,8 @@ export class AccountService {
   accountUrl: string;
 
   constructor(private http: HttpService) {
-    this.accountTypesUrl = `${environment.apiUrl}/account-types`;
-    this.accountUrl      =  `${environment.apiUrl}/accounts`;
+    this.accountTypesUrl = `account-types`;
+    this.accountUrl      =  `accounts`;
   }
 
 

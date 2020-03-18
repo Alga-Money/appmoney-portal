@@ -5,11 +5,12 @@ import { SigninComponent } from './signin/signin.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AuthRoutingModule} from './auth-routing.module';
 import {AuthComponent} from './auth.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 
 @NgModule({
-  declarations: [ SigninComponent, AuthComponent],
+  declarations: [ SigninComponent, AuthComponent, SignupComponent],
   imports: [
     CommonModule,
     AngularMaterialModule,

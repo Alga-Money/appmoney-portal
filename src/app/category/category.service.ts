@@ -11,7 +11,7 @@ export class CategoryService {
   categoriesURL: string;
 
   constructor(private http: HttpService) {
-    this.categoriesURL      =  `${environment.apiUrl}/categories`;
+    this.categoriesURL      =  `categories`;
   }
 
   getCategories(): Promise<Account[]> {
