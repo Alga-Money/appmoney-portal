@@ -52,7 +52,7 @@ export class TransactionRegisterComponent implements OnInit {
   }
 
   async getAccounts() {
-    this.listAccounts = await  this.serviceAccount.getAllAcounts();
+    this.listAccounts = await  this.serviceAccount.getAcounts();
   }
 
   save() {

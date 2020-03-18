@@ -6,8 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainHeaderComponent } from './main-header/main-header.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import {AccountModule} from "./account/account.module";
-import { RouterModule, Routes } from '@angular/router';
-import {ROUTES} from './routes';
 import { CategoryModule } from './category/category.module';
 import {HttpService} from './shared/services/http-service';
 import {HttpClientModule} from '@angular/common/http';
@@ -15,14 +13,15 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TransactionModule} from './transaction/transaction.module';
 import {AngularMaterialModule} from './angular-material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AuthComponent} from './auth/auth.component';
 import {SnackBarService} from './shared/services/snack-bar.service';
+import {AuthModule} from './auth/auth.module';
+import {AppRoutingModule} from './app-routing.module';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainHeaderComponent,
-    AuthComponent
   ],
   imports: [
     BrowserModule,
@@ -32,10 +31,11 @@ import {SnackBarService} from './shared/services/snack-bar.service';
     AccountModule,
     CategoryModule,
     TransactionModule,
+    AuthModule,
     NgbModule,
-    RouterModule.forRoot(ROUTES),
+    AppRoutingModule,
     AngularMaterialModule,
-    FormsModule, ReactiveFormsModule
+    FormsModule, ReactiveFormsModule, RouterModule
   ],
   providers: [HttpService, SnackBarService],
   bootstrap: [AppComponent]

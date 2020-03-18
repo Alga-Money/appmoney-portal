@@ -31,7 +31,8 @@ export class AccountService {
        .then(response => response.data);
    }
 
-  getAllAcounts(): Promise<Account[]> {
+  getAcounts(): Promise<Account[]> {
+   // let url = `${this.accountUrl}/${paramId}`
     return this.http.get<any>(this.accountUrl)
       .toPromise()
       .then(response => {

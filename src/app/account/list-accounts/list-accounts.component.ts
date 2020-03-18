@@ -34,7 +34,7 @@ export class ListAccountsComponent implements OnInit {
 
   async getData() {
     try {
-      this.listAccounts = await this.accountService.getAllAcounts();
+      this.listAccounts = await this.accountService.getAcounts();
     } catch (e) {
       console.error(e);
     }

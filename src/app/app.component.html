@@ -1,3 +1,4 @@
-<!--<app-auth></app-auth>-->
-<app-main-header></app-main-header>
-
+<!--&lt;!&ndash;<app-auth></app-auth>&ndash;&gt;-->
+<!--<app-main-header></app-main-header>-->
+<div class="not_connected" *ngIf="!isConnected">Sua conexão com a Internet não está funcionando!</div>
+<router-outlet></router-outlet>
