@@ -33,7 +33,7 @@ export class SigninComponent implements OnInit {
   login():void {
     debugger
     let token =    this.authService.login({user:'luiz',pwd:'123'});
-    this.router.navigateByUrl('/accounts');
+    this.router.navigateByUrl('/dashboard');
     console.log(token);
   }
 

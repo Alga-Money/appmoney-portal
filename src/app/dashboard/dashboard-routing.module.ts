@@ -1,11 +1,10 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
-
-import {SigninComponent} from './signin/signin.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
 
 
 const routes: Routes = [
-  {path: 'login', component: SigninComponent},
+  {path: 'dashboard', component: DashboardComponent},
   // { path: 'cpf', component: CpfVerificationComponent },
   // { path: 'email-confirm', component: EmailVerificationComponent },
   // { path: 'cadastro', component: SignupComponent },
@@ -23,5 +22,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AuthRoutingModule {
+export class DashboardRoutingModule {
 }

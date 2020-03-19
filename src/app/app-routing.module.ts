@@ -1,18 +1,23 @@
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 
-import {AccountRegisterComponent} from './account/account-register/account-register.component';
-import {ListAccountsComponent} from "./account/list-accounts/list-accounts.component";
-import {TransactionRegisterComponent} from './transaction/transaction-register/transaction-register.component';
-import {ListCategoryComponent} from './category/list-category/list-category.component';
 import {NgModule} from '@angular/core';
-
+import {AcessDeniedComponent} from './core/acess-denied/acess-denied.component';
+import {PageNotFoundComponent} from './core/page-not-found/page-not-found.component';
 
 
 const routes: Routes = [
-  { path: '', loadChildren: './auth/auth.module#AuthModule' },
-  { path: '**', redirectTo: '/login' }
+
+  {path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule'},
+  {path: 'accounts', loadChildren: './account/account.module#AccountModule'},
+
+  {path: 'login', loadChildren: './auth/auth.module#AuthModule'},
+
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: 'nao-autorizado', component: AcessDeniedComponent},
+  {path: 'pagina-nao-encontrada', component: PageNotFoundComponent},
+  {path: '**', redirectTo: 'pagina-nao-encontrada'}
 ];
 
 
@@ -25,11 +30,11 @@ const routes: Routes = [
 //   { path: '**', redirectTo: '/login' }];
 
 
-
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules}),
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
