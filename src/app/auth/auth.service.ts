@@ -16,8 +16,9 @@ export class AuthService {
     return this.httpService.post<any>('auth/signin', user).toPromise();
   }
 
-  // register(user: IUser) {
-  //   return this.httpService.httpPost('/auth/signup', user, null);
-  // }
+
+  register(user) {
+     return this.httpService.post<any>('/auth/signup', user, null).toPromise();
+   }
 
 }

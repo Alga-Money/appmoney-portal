@@ -8,7 +8,6 @@ import {PageNotFoundComponent} from './core/page-not-found/page-not-found.compon
 
 
 const routes: Routes = [
-
   {path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule'},
   {path: 'accounts', loadChildren: './account/account.module#AccountModule'},
 
