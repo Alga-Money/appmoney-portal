@@ -1,0 +1,120 @@
+<div class="container">
+  <form [formGroup]="frmTransaction">
+
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>Nova</mat-label>
+        <mat-select  formControlName="type"  >
+          <mat-option *ngFor="let t of transationTypes" [value]="t.value">
+            {{t.desc}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+
+      <mat-form-field>
+        <input class="form-control" matInput type="number" placeholder="Valor"
+               formControlName="transactionValue" required>
+
+        <mat-error
+          *ngIf="frmTransaction.get('transactionValue').hasError('required')"
+          class="text-danger">{{staticmsgs.obrigatoryRegister}}</mat-error>
+
+      </mat-form-field>
+
+    </div>
+
+
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>Conta</mat-label>
+        <mat-select formControlName="accountId"    >
+          <mat-option *ngFor="let c of listAccounts" [value]="c.id">
+            {{c.description}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field>
+        <input class="form-control" matInput type="text" placeholder="Descrição"
+               formControlName="description">
+
+        <mat-error
+          *ngIf="frmTransaction.get('description').hasError('required')"
+          class="text-danger">{{staticmsgs.obrigatoryRegister}}</mat-error>
+
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>Categoria</mat-label>
+        <mat-select  formControlName="categoryId"  >
+          <mat-option *ngFor="let c of listCategory" [value]="c.id">
+            {{c.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field>
+        <input class="form-control" matInput type="text" placeholder="Observação"
+               formControlName="note">
+<!--        <mat-error-->
+<!--          *ngIf="frmTransaction.get('note').hasError('required')"-->
+<!--          class="text-danger">{{staticmsgs.obrigatoryRegister}}</mat-error>-->
+
+      </mat-form-field>
+
+    </div>
+
+<!--    <div class="form-group">-->
+<!--      <mat-radio-group aria-label="Selecione o tipo da transação" formControlName="type">-->
+<!--        <mat-radio-button value="1">Entrada</mat-radio-button>-->
+<!--        <mat-radio-button value="2">saída</mat-radio-button>-->
+<!--      </mat-radio-group>-->
+<!--    </div>-->
+
+
+    <div  class="form-group">
+      <mat-form-field>
+        <mat-label>Date de vencimento</mat-label>
+        <input matInput [matDatepicker]="picker"  formControlName="dueDate" >
+        <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+    </div>
+
+
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>Date de pagamento</mat-label>
+        <input matInput [matDatepicker]="dp" formControlName="paymentDate" >
+        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+        <mat-datepicker #dp></mat-datepicker>
+      </mat-form-field>
+
+    </div>
+
+
+
+    <div class="form-group">
+      <mat-form-field>
+        <input class="form-control" matInput type="number" placeholder="Valor pago"
+               formControlName="paymentValue" >
+      </mat-form-field>
+
+    </div>
+    <div class="form-text">
+      <button mat-raised-button (click)="save()">Gravar</button>
+    </div>
+
+
+  </form>
+</div>

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {StaticMessages} from '../../shared/services/static-messages';
 import {AuthService} from '../auth.service';
+import {TokenStorageService} from '../../shared/services/token-storage-service';
 
 @Component({
   selector: 'app-signin',
@@ -17,7 +18,8 @@ export class SigninComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private storageToken: TokenStorageService) {
 
   }
 
@@ -29,12 +31,16 @@ export class SigninComponent implements OnInit {
   }
 
 
+  async login() {
+    if (this.loginForm.valid) {
+      let data = await this.authService.login(this.loginForm.value);
+      console.log(data);
+      this.storageToken.saveToken(data.token);
+      this.storageToken.saveUser(data.user)
 
-  login():void {
-    debugger
-    let token =    this.authService.login({user:'luiz',pwd:'123'});
-    this.router.navigateByUrl('/dashboard');
-    console.log(token);
+      this.router.navigate(['/']);
+    }
+
   }
 
 }

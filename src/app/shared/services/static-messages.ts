@@ -1,7 +1,7 @@
 export const StaticMessages = {
 
   obrigatoryRegister: 'Registro Obrigatório',
-
+  emailInvalid: 'Email inválido',
 
 
   success: 'Sucesso',

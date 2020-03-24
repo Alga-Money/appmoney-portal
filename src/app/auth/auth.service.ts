@@ -12,7 +12,7 @@ export class AuthService {
   constructor(private httpService: HttpService) { }
 
 
-  login(user): Promise<AccountType> {
+  login(user): Promise<any> {
     return this.httpService.post<any>('auth/signin', user).toPromise();
   }
 

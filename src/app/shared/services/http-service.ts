@@ -44,7 +44,7 @@ export class HttpService extends HttpClient {
   }
 
   public put<T>(url: string, body: any, options?: any): Observable<T> {
-    return this.makeRequisition<T>(() => super.put<T>(url, body, options));
+    return this.makeRequisition<T>(() => super.put<T>(`${this.getBaseUrl()}/${url}`, body, options));
   }
 
   private makeRequisition<T>(fn: Function): Observable<T> {

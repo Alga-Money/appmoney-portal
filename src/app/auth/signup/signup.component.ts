@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../auth.service';
 import {StaticMessages} from '../../shared/services/static-messages';
+import {tryCatch} from 'rxjs/internal-compatibility';
 
 @Component({
   selector: 'app-signup',
@@ -16,9 +17,9 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      email: [null, Validators.required],
+      email: [null, Validators.email],
       password: [null, Validators.required],
-      name:[null, Validators.required]
+      name: [null, Validators.required]
     });
   }
 
@@ -29,7 +30,17 @@ export class SignupComponent implements OnInit {
 
   }
 
-  registerAccount(){
-    console.log(`Register account`)  ;
+ async registerAccount() {
+    debugger
+    if (this.loginForm.valid) {
+      try{
+        const res = await this.authService.register(this.loginForm.value);
+        console.log(res);
+        console.log(`Register account`);
+      }catch (e) {
+       console.log(e) ;
+      }
+
+    }
   }
 }
