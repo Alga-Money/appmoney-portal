@@ -37,7 +37,19 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+
+
+  <div class="form-group form-text">
+    <div class="row justify-content-end">
+      <div class="col-4">
+        <button class="fabButton mt-2"  (click)="navigatoToCreateTransaction()" mat-fab color="primary">
+          <mat-icon aria-hidden="false">add</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
 </div>
-<button class="fabButton mt-2" (click)="navigatoToCreateTransaction()" mat-fab color="primary">
-  <mat-icon aria-hidden="false">add</mat-icon>
-</button>
+
+

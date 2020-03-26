@@ -20,6 +20,7 @@ import {RouterModule} from '@angular/router';
 import {CoreModule} from './core/core.module';
 import {ScrollTopService} from './shared/services/scrolltop.service';
 import {APP_BASE_HREF, PlatformLocation} from '@angular/common';
+import {CurrencyMaskModule} from 'ng2-currency-mask';
 
 
 
@@ -46,6 +47,7 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
     ReactiveFormsModule,
     RouterModule,
     CoreModule,
+    CurrencyMaskModule
   ],
   providers: [HttpService,
               SnackBarService,

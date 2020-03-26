@@ -4,6 +4,7 @@ import {TransactionService} from '../transaction.service';
 import {StaticMessages} from '../../../shared/services/static-messages';
 import {CategoryService} from '../../category/category.service';
 import {AccountService} from '../../account/account.service';
+import {TokenStorageService} from '../../../shared/services/token-storage-service';
 
 @Component({
   selector: 'app-transaction-register',
@@ -22,7 +23,8 @@ export class TransactionRegisterComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private service: TransactionService,
               private serviceCategory: CategoryService,
-              private serviceAccount: AccountService
+              private serviceAccount: AccountService,
+              private storageToken: TokenStorageService
   ) {
   }
 
@@ -58,17 +60,15 @@ export class TransactionRegisterComponent implements OnInit {
   }
 
   save() {
+    const user = this.storageToken.getUser();
     this.frmTransaction.patchValue({
-      userId: 1,
+      userId: user.id,
       status: 0,
-      categoryId: 1,
-      accountId: 1
-      // formControlName2: myValue2 (can be omitted)
     });
+    debugger
     if (this.frmTransaction.valid) {
       this.service.register(this.frmTransaction.value)
         .then(response => {
-          debugger;
           console.log(response)}
           )
         .catch(error => console.log(error));
