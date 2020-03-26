@@ -1,0 +1,40 @@
+<div class="d-flex w-100 h-100 bg-info">
+
+  <div class="m-auto text-center p-3 bg-white  bd-r-container ">
+    <h3>User Login</h3>
+    <form [formGroup]="loginForm">
+
+
+      <div class="form-group">
+
+        <div class="col-12">
+          <mat-form-field>
+            <input class="form-control" matInput type="text" placeholder="Email!" formControlName="email" required>
+            <mat-error *ngIf="loginForm.get('email').hasError('required')">
+              {{staticmsgs.obrigatoryRegister}}</mat-error>
+          </mat-form-field>
+        </div>
+
+
+        <div class="col-12">
+          <mat-form-field>
+            <input class="form-control" matInput type="password" placeholder="Password!" formControlName="password" required>
+            <mat-error *ngIf="loginForm.get('password').hasError('required')">
+              {{staticmsgs.obrigatoryRegister}}</mat-error>
+          </mat-form-field>
+        </div>
+
+
+        <div class="m-2">
+          <button class="btn btn-primary" (click)="login()">
+            <span class="spinner-border spinner-border-sm mr-1"></span>
+            Login
+          </button>
+          <a routerLink="/register" class="btn btn-link">Register</a>
+
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

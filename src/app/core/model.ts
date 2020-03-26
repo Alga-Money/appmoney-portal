@@ -10,6 +10,10 @@ export class Account {
   AccountType: AccountType;
 }
 
+export class Category {
+
+}
+
 export class AccountType {
   id: number;
   name: string;
