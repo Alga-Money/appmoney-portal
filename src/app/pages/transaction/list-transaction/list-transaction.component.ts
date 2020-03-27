@@ -23,7 +23,7 @@ export class ListTransactionComponent implements OnInit {
   ngOnInit() {
     this.getData();
   }
-  displayedColumns: string[] = ['dueDate', 'description', 'paymentValue'];
+  displayedColumns: string[] = ['dueDate', 'description', 'paymentValue', 'star'];
 
   navigatoToCreateTransaction() {
     this.router.navigate(['list-transactions/create-transaction']);
