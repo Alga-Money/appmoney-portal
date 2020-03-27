@@ -1,0 +1,19 @@
+.transaction-saida{
+  color: #CE6060;
+}
+.transaction-entrada{
+color: #179428;
+}
+
+.description{
+  font-size: 16px;
+}
+
+.category mat-chip{
+  font-size: 12px;
+  font-style: italic;
+}
+
+.dueDate{
+  width: 16% !important;
+}
