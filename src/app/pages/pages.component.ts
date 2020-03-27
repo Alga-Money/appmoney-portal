@@ -3,6 +3,7 @@ import {fadeAnimation} from '../shared/animations/fade.animation';
 import {Observable} from 'rxjs';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {map, shareReplay} from 'rxjs/operators';
+import {TokenStorageService} from '../shared/services/token-storage-service';
 @Component({
   selector: 'pages',
   templateUrl: './pages.component.html',
@@ -16,5 +17,11 @@ export class PagesComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver, private storageToken: TokenStorageService) {}
+
+
+  logout(){
+    this.storageToken.signOut();
+  }
+
 }
