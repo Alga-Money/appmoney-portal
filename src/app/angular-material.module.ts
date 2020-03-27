@@ -22,7 +22,7 @@ import {
   MatSlideToggleModule,
   MatTabsModule,
   MatSelectModule,
-  MatSnackBarModule
+  MatSnackBarModule, MatMenuModule
 } from '@angular/material';
 
 @NgModule({
@@ -48,7 +48,8 @@ import {
     MatCardModule,
     MatSlideToggleModule,
     MatTabsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatMenuModule
   ],
   exports: [
     MatButtonModule,
@@ -71,7 +72,8 @@ import {
     MatSlideToggleModule,
     MatTabsModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatMenuModule
   ],
   providers: [
     MatDatepickerModule,

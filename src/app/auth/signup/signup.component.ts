@@ -31,7 +31,6 @@ export class SignupComponent implements OnInit {
   }
 
  async registerAccount() {
-    debugger
     if (this.loginForm.valid) {
       try{
         const res = await this.authService.register(this.loginForm.value);
@@ -40,7 +39,6 @@ export class SignupComponent implements OnInit {
       }catch (e) {
        console.log(e) ;
       }
-
     }
   }
 }

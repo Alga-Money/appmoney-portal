@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {TransactionService} from '../transaction.service';
+import {TransactionType} from '../../../shared/enuns/TransactionType';
 
 
 export interface PeriodicElement {
@@ -22,8 +23,7 @@ export class ListTransactionComponent implements OnInit {
   ngOnInit() {
     this.getData();
   }
-  displayedColumns: string[] = ['dueDate', 'description', 'status', 'paymentValue'];
-  //displayedColumns: string[] = ['id', '', '', '', ''];
+  displayedColumns: string[] = ['dueDate', 'description', 'paymentValue', 'star'];
 
   navigatoToCreateTransaction() {
     this.router.navigate(['list-transactions/create-transaction']);
@@ -33,4 +33,6 @@ export class ListTransactionComponent implements OnInit {
    this.dataSource = await    this.serviceTransaction.getTransactions();
    console.table(this.dataSource);
   }
+
+  getTextByValueTransction = (value) => TransactionType.getTextByValue(value);
 }
