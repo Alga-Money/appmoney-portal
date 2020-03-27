@@ -27,6 +27,17 @@
     </div>
 
 
+    <div  class="form-group">
+      <mat-form-field>
+        <mat-label>Date de vencimento</mat-label>
+        <input matInput [matDatepicker]="picker"  formControlName="dueDate" >
+        <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+    </div>
+
+
     <div class="form-group">
       <mat-form-field>
         <mat-label>Conta</mat-label>
@@ -81,26 +92,17 @@
 <!--    </div>-->
 
 
-    <div  class="form-group">
-      <mat-form-field>
-        <mat-label>Date de vencimento</mat-label>
-        <input matInput [matDatepicker]="picker"  formControlName="dueDate" >
-        <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-
-    </div>
 
 
-    <div class="form-group">
-      <mat-form-field>
-        <mat-label>Date de pagamento</mat-label>
-        <input matInput [matDatepicker]="dp" formControlName="paymentDate" >
-        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-        <mat-datepicker #dp></mat-datepicker>
-      </mat-form-field>
+<!--    <div class="form-group">-->
+<!--      <mat-form-field>-->
+<!--        <mat-label>Date de pagamento</mat-label>-->
+<!--        <input matInput [matDatepicker]="dp" formControlName="paymentDate" >-->
+<!--        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>-->
+<!--        <mat-datepicker #dp></mat-datepicker>-->
+<!--      </mat-form-field>-->
 
-    </div>
+<!--    </div>-->
 
 
 

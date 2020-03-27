@@ -64,8 +64,10 @@ export class TransactionRegisterComponent implements OnInit {
     this.frmTransaction.patchValue({
       userId: user.id,
       status: 0,
+      paymentValue: this.frmTransaction.value.transactionValue,
+      paymentDate: this.frmTransaction.value.dueDate
     });
-    debugger
+
     if (this.frmTransaction.valid) {
       this.service.register(this.frmTransaction.value)
         .then(response => {
