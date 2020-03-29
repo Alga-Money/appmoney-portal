@@ -1,3 +1,39 @@
-<div class="container">
-    
+<div class="container card">
+  <form [formGroup]="frmCategory">
+
+    <div class="form-group">
+
+      <mat-form-field>
+        <input class="form-control" matInput type="text" placeholder="Descrição"
+               formControlName="name" required>
+
+        <mat-error
+          *ngIf="frmCategory.get('name').hasError('required')"
+          class="text-danger">{{staticmsgs.obrigatoryRegister}}</mat-error>
+
+      </mat-form-field>
+
+    </div>
+
+    <div class="form-group">
+      <mat-slide-toggle
+        value
+        formControlName="isActive"
+        class="example-margin"
+        [color]="color"
+        [checked]="checked"
+        [disabled]="disabled">
+        Desativar Conta
+      </mat-slide-toggle>
+    </div>
+
+    <div class="form-group form-text">
+      <div class="row row justify-content-end">
+        <div class="col-4">
+          <button mat-raised-button  color="primary" (click)="save()">Gravar</button>
+        </div>
+      </div>
+    </div>
+
+  </form>
 </div>
