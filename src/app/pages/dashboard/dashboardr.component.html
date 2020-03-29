@@ -1,1 +1,34 @@
-<div>DashBoard</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md6 card mt-1">
+      <span class="text-center"><h3>Saldos de caixa</h3>
+      </span>
+
+      <div *ngFor="let account of listAccounts">
+        <span>
+        {{account.description}}
+          {{account.openingBalance | currency: 'BRL'}}</span>
+      </div>
+
+      <div class="col-12">
+        <span>Total: {{accountTotal}}</span>
+      </div>
+
+    </div>
+
+
+    <div class="col-md6 card mt-1">
+      <span>Resultados de caixa</span>
+    <div class="chart-wrapper">
+      <canvas baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [plugins]="barChartPlugins"
+              [legend]="barChartLegend"
+              [chartType]="barChartType">
+      </canvas></div>
+    </div>
+  </div>
+
+</div>

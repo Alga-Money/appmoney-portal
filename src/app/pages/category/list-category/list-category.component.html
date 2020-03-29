@@ -4,7 +4,8 @@
       <mat-card >
         <mat-card-header>
           <mat-card-title>
-            {{category.description}}
+            {{category.name}}
+
           </mat-card-title>
         </mat-card-header>
         <mat-card-content>
@@ -12,9 +13,10 @@
       </mat-card>
     </div>
 
-    <button class="fabButton mt-2"  mat-fab color="primary">
+    <div class="form-group" >
+    <button class="fabButton mt-2" (click)="navigateToCreateCategory()" mat-fab color="primary">
       <mat-icon aria-hidden="false">add</mat-icon>
     </button>
-
+  </div>
   </div>
 </div>

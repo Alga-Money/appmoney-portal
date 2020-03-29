@@ -16,7 +16,6 @@ export class TransactionService {
 
 
   register(transaction: Transaction): Promise<Transaction> {
-    console.log(transaction);
     return this.http.post<Transaction>(this.transactionUrl, transaction)
       .toPromise();
   }
