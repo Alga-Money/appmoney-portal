@@ -4,7 +4,7 @@
     <div class="form-group">
       <mat-form-field>
         <mat-label>Nova</mat-label>
-        <mat-select  formControlName="type"  >
+        <mat-select  (selectionChange)="changeTransactionType($event)"  formControlName="type"  >
           <mat-option *ngFor="let t of transationTypes" [value]="t.value">
             {{t.desc}}
           </mat-option>
@@ -26,10 +26,9 @@
 
     </div>
 
-
     <div  class="form-group">
       <mat-form-field>
-        <mat-label>Date de vencimento</mat-label>
+        <mat-label>Data</mat-label>
         <input matInput [matDatepicker]="picker"  formControlName="dueDate" >
         <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
@@ -40,8 +39,21 @@
 
     <div class="form-group">
       <mat-form-field>
-        <mat-label>Conta</mat-label>
+        <mat-label *ngIf="accountTypeIsTransacntion" >Conta de origem</mat-label>
+        <mat-label *ngIf="!accountTypeIsTransacntion" >Conta</mat-label>
         <mat-select formControlName="accountId"    >
+          <mat-option *ngFor="let c of listAccounts" [value]="c.id">
+            {{c.description}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+    <div class="form-group" *ngIf="accountTypeIsTransacntion" >
+      <mat-form-field>
+        <mat-label>Conta de destino </mat-label>
+        <mat-select formControlName="accountIdDesc"    >
           <mat-option *ngFor="let c of listAccounts" [value]="c.id">
             {{c.description}}
           </mat-option>

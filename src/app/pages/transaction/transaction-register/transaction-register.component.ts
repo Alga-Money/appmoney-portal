@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TransactionService} from '../transaction.service';
 import {StaticMessages} from '../../../shared/services/static-messages';
 import {CategoryService} from '../../category/category.service';
 import {AccountService} from '../../account/account.service';
 import {TokenStorageService} from '../../../shared/services/token-storage-service';
+import {MatSelectChange} from '@angular/material';
+import {Account} from '../../../core/model';
 
 @Component({
   selector: 'app-transaction-register',
@@ -16,9 +18,11 @@ export class TransactionRegisterComponent implements OnInit {
   listAccounts: any;
   staticmsgs = StaticMessages;
   public frmTransaction: FormGroup;
-  transationTypes = [ {desc:'despesa',value:0},
-                      {desc:'receita',value:1},
-                      {desc:'transferência',value:2}];
+  transationTypes = [{desc: 'Despesa', value: 0},
+    {desc: 'Receita', value: 1},
+    {desc: 'Transferência', value: 2}];
+
+  accountTypeIsTransacntion = false;
 
   constructor(private fb: FormBuilder,
               private service: TransactionService,
@@ -40,24 +44,29 @@ export class TransactionRegisterComponent implements OnInit {
         paymentValue: [null, null],
         userId: [null, null],
         categoryId: [null, null],
-        accountId: [null, null]
+        accountId: [null, null],
+        accountIdDesc: [null, null]
 
       }
     );
+
+    this.frmTransaction.patchValue({
+      type: 0
+    });
 
     this.getCategories();
     this.getAccounts();
   }
 
 
-
-  async  getCategories() {
-    this.listCategory =     await this.serviceCategory.getCategories();
+  async getCategories() {
+    this.listCategory = await this.serviceCategory.getCategories();
   }
 
   async getAccounts() {
-    this.listAccounts = await  this.serviceAccount.getAcounts();
+    this.listAccounts = await this.serviceAccount.getAcounts();
   }
+
 
   save() {
     const user = this.storageToken.getUser();
@@ -71,10 +80,20 @@ export class TransactionRegisterComponent implements OnInit {
     if (this.frmTransaction.valid) {
       this.service.register(this.frmTransaction.value)
         .then(response => {
-          console.log(response)}
-          )
+            console.log(response);
+          }
+        )
         .catch(error => console.log(error));
     }
+  }
+
+  changeTransactionType(event) {
+    let value = event.value;
+    if (value === 2) {
+        this.accountTypeIsTransacntion = true;
+      } else {
+        this.accountTypeIsTransacntion = false;
+      }
   }
 
 }
