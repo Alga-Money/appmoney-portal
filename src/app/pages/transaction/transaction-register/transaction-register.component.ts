@@ -5,8 +5,9 @@ import {StaticMessages} from '../../../shared/services/static-messages';
 import {CategoryService} from '../../category/category.service';
 import {AccountService} from '../../account/account.service';
 import {TokenStorageService} from '../../../shared/services/token-storage-service';
-import {MatSelectChange} from '@angular/material';
-import {Account} from '../../../core/model';
+import {MessageService} from 'primeng';
+import {ActivatedRoute} from '@angular/router';
+import {SnackBarService} from '../../../shared/services/snack-bar.service';
 
 @Component({
   selector: 'app-transaction-register',
@@ -28,11 +29,13 @@ export class TransactionRegisterComponent implements OnInit {
               private service: TransactionService,
               private serviceCategory: CategoryService,
               private serviceAccount: AccountService,
-              private storageToken: TokenStorageService
-  ) {
-  }
+              private storageToken: TokenStorageService,
+              private route: ActivatedRoute,
+              private snackBarService: SnackBarService,
+) {
+}
 
-  ngOnInit() {
+ngOnInit() {
     this.frmTransaction = this.fb.group({
         description: [null, Validators.required],
         note: [null, null],
@@ -56,8 +59,17 @@ export class TransactionRegisterComponent implements OnInit {
 
     this.getCategories();
     this.getAccounts();
+    this.getTransaction();
+
   }
 
+
+  async getTransaction(){
+    const paramId = this.route.snapshot.paramMap.get('transaction_id');
+    if(paramId) {
+      const transationObj = await this.service.getTransaction(paramId);
+    }
+  }
 
   async getCategories() {
     this.listCategory = await this.serviceCategory.getCategories();
@@ -81,6 +93,7 @@ export class TransactionRegisterComponent implements OnInit {
       this.service.register(this.frmTransaction.value)
         .then(response => {
             console.log(response);
+            this.snackBarService.openSnackBar(this.staticmsgs.success, this.staticmsgs.dataSaved);
           }
         )
         .catch(error => console.log(error));

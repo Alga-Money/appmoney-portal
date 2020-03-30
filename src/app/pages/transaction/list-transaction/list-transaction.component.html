@@ -52,7 +52,7 @@
         </button>
 
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>
+          <button mat-menu-item (click)="navigatoToEditTransaction(element.id)" >
             <mat-icon>mode_edit</mat-icon>
             <span>Alterar</span>
           </button>

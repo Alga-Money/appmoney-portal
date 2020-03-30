@@ -1,34 +1,41 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md6 card mt-1">
-      <span class="text-center"><h3>Saldos de caixa</h3>
+  <div class="row mt-1">
+
+    <div class="col-md-6">
+      <div class="card">
+
+      <span class="text-center">
+        <h3>Saldos de caixa</h3>
       </span>
 
       <div *ngFor="let account of listAccounts">
-        <span>
+        <span><h6>
         {{account.description}}
-          {{account.openingBalance | currency: 'BRL'}}</span>
+          {{account.openingBalance | currency: 'BRL'}}</h6></span>
       </div>
 
-      <div class="col-12">
-        <span>Total: {{accountTotal}}</span>
+      <div class="col-12 text-center">
+        <span><h4>Total: {{accountTotal}}</h4></span>
       </div>
-
+    </div>
     </div>
 
-
-    <div class="col-md6 card mt-1">
-      <span>Resultados de caixa</span>
-    <div class="chart-wrapper">
-      <canvas baseChart
-              [datasets]="barChartData"
-              [labels]="barChartLabels"
-              [options]="barChartOptions"
-              [plugins]="barChartPlugins"
-              [legend]="barChartLegend"
-              [chartType]="barChartType">
-      </canvas></div>
+    <div class="col-md-6">
+      <div class="card">
+        <span>Resultados de caixa</span>
+        <div class="chart-result-caixa">
+          <canvas baseChart
+                  [datasets]="barChartData"
+                  [labels]="barChartLabels"
+                  [options]="barChartOptions"
+                  [plugins]="barChartPlugins"
+                  [legend]="barChartLegend"
+                  [chartType]="barChartType">
+          </canvas>
+        </div>
+      </div>
     </div>
+
   </div>
 
 </div>

@@ -7,6 +7,7 @@ import {MatSnackBar} from '@angular/material';
 import {SnackBarService} from '../../../shared/services/snack-bar.service';
 import {ActivatedRoute} from '@angular/router';
 import {TokenStorageService} from '../../../shared/services/token-storage-service';
+import {MessageService} from 'primeng';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class AccountRegisterComponent implements OnInit {
               private  accountService: AccountService,
               private snackBarService: SnackBarService,
               private route: ActivatedRoute,
-              private storageToken: TokenStorageService
+              private storageToken: TokenStorageService,
   ) {
     this.frmAccount = this.fb.group({
       id: [null, null],
@@ -79,7 +80,6 @@ export class AccountRegisterComponent implements OnInit {
       color: ' ',
       ignoreOverallBalance: false
     });
-    debugger
     if (this.frmAccount.valid) {
       if (!this.account) { //save
         this.accountService.registerAccount(this.frmAccount.value)
@@ -88,7 +88,7 @@ export class AccountRegisterComponent implements OnInit {
             }
           )
           .catch(error => {
-            console.error(error);
+            this.snackBarService.openSnackBar(this.staticmsgs.error, this.staticmsgs.errorMessage);
           });
       } else { //edit
 
@@ -99,6 +99,7 @@ export class AccountRegisterComponent implements OnInit {
           )
           .catch(error => {
             console.error(error);
+            this.snackBarService.openSnackBar(this.staticmsgs.error, this.staticmsgs.errorMessage);
           });
       }
 

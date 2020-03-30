@@ -28,4 +28,14 @@ export class TransactionService {
         return response.data;
       });
   }
+
+  getTransaction(ID): Promise<Account[]> {
+    const user = this.storageToken.getUser();
+    return this.http.get<any>(`${this.transactionUrl}/${ID}?user_id=${user.id}`)
+      .toPromise()
+      .then(response => {
+        return response.data;
+      });
+  }
+
 }

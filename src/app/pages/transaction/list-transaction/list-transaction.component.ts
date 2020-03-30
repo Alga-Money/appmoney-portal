@@ -29,10 +29,18 @@ export class ListTransactionComponent implements OnInit {
     this.router.navigate(['list-transactions/create-transaction']);
   }
 
+  navigatoToEditTransaction(idTransaction) {
+    this.router.navigate(['list-transactions/edit-transaction', idTransaction]);
+  }
+
+
+
   async getData() {
    this.dataSource = await    this.serviceTransaction.getTransactions();
    console.table(this.dataSource);
   }
 
-  getTextByValueTransction = (value) => TransactionType.getTextByValue(value);
+
+
+
 }

@@ -12,6 +12,7 @@ import {Label} from 'ng2-charts';
 export class DashboardrComponent implements OnInit {
   barChartOptions: ChartOptions = {
     responsive: true,
+
   };
   barChartLabels: Label[] = [];
   barChartType: ChartType = 'bar';
@@ -65,12 +66,14 @@ export class DashboardrComponent implements OnInit {
   async getAccounts() {
     try {
       this.listAccounts = await this.accountService.getAcountsDashboard();
-      this.accountTotal = this.valueTotalAccounts();
+      this.accountTotal = await this.valueTotalAccounts();
       this.barChartLabels = [''];//this.listAccounts.map(a => a.description);
       let arraChartValues = this.listAccounts.map(a => {
-        return {data: [a.openingBalance], label:a.description};
+        return {data: [a.openingBalance], label:a.description, borderWidth:1};
       });
       this.barChartData = arraChartValues;
+      console.log(this.accountTotal);
+
     } catch (e) {
       console.error(e);
     }

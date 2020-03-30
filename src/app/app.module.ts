@@ -44,12 +44,12 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
     RouterModule,
     CoreModule,
     CurrencyMaskModule,
-    ChartsModule
+    ChartsModule,
   ],
   providers: [HttpService,
               SnackBarService,
               ScrollTopService,
-        {provide: APP_BASE_HREF, useFactory: getBaseHref, deps: [PlatformLocation]}],
+    {provide: APP_BASE_HREF, useFactory: getBaseHref, deps: [PlatformLocation]}],
   bootstrap: [AppComponent]
 })
 export class AppModule {
