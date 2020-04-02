@@ -1,4 +1,5 @@
 export class Account {
+  id: number;
   description: string;
   color: string;
   createdAt: Date;

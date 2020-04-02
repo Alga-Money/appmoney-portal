@@ -23,6 +23,7 @@ export class ListTransactionComponent implements OnInit {
   ngOnInit() {
     this.getData();
   }
+
   displayedColumns: string[] = ['dueDate', 'description', 'paymentValue', 'star'];
 
   navigatoToCreateTransaction() {
@@ -30,13 +31,16 @@ export class ListTransactionComponent implements OnInit {
   }
 
   navigatoToEditTransaction(idTransaction) {
-    this.router.navigate(['list-transactions/edit-transaction', idTransaction]);
+    this.router.navigate(['list-transactions/edit-transaction', idTransaction],{queryParams:{operation:'edit'}});
+  }
+
+  navigatoToConfirmTransaction(idTransaction) {
+    this.router.navigate(['list-transactions/confirm-transaction', idTransaction],{queryParams:{operation:'confirm'}});
   }
 
 
-
   async getData() {
-   this.dataSource = await    this.serviceTransaction.getTransactions();
+   this.dataSource = await    this.serviceTransaction.getTransactions(null);
    console.table(this.dataSource);
   }
 

@@ -3,6 +3,9 @@ import {ScrollTopService} from '../../shared/services/scrolltop.service';
 import {AccountService} from '../account/account.service';
 import {ChartOptions, ChartType, ChartDataSets} from 'chart.js';
 import {Label} from 'ng2-charts';
+import {TransactionService} from '../transaction/transaction.service';
+import {DashboardService} from './dashboard.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-dashboardr',
@@ -10,6 +13,11 @@ import {Label} from 'ng2-charts';
   styleUrls: ['./dashboardr.component.css']
 })
 export class DashboardrComponent implements OnInit {
+  dataSourceAccountsReceivable = [];
+  dataSourceAccountsScore = [];
+  displayedColumns: string[] = ['dueDate', 'description', 'paymentValue', 'star'];
+
+
   barChartOptions: ChartOptions = {
     responsive: true,
 
@@ -24,10 +32,12 @@ export class DashboardrComponent implements OnInit {
   ];
 
   listAccounts: any;
+  listAccountsReceivable: any;
   mobHeight: number;
   mobWidth: number;
   mode: string;
   opened: boolean;
+  accountTotalScore:number;
 
   accountTotal: number = 0;
 
@@ -41,7 +51,12 @@ export class DashboardrComponent implements OnInit {
     }
   }
 
-  constructor(private scrollTopService: ScrollTopService, private  accountService: AccountService) {
+  constructor(private scrollTopService: ScrollTopService,
+              private  accountService: AccountService,
+              private transactionService: TransactionService,
+              private dashboardService: DashboardService,
+              private router: Router
+  ) {
   }
 
   ngOnInit() {
@@ -55,8 +70,8 @@ export class DashboardrComponent implements OnInit {
     }
     this.scrollTopService.setScrollTop();
     this.getAccounts();
-    // this.barChartLabels = this.descriptionsLabelBar();
-    // this.barChartLabels.map(a => console.log(a));
+    this.accountsReceivable();
+    this.accountsScore();
   }
 
   valueTotalAccounts() {
@@ -65,11 +80,13 @@ export class DashboardrComponent implements OnInit {
 
   async getAccounts() {
     try {
-      this.listAccounts = await this.accountService.getAcountsDashboard();
+      this.listAccounts = await this.dashboardService.getTotais();
+      // this.listAccounts = await this.accountService.getAcountsDashboard();
       this.accountTotal = await this.valueTotalAccounts();
       this.barChartLabels = [''];//this.listAccounts.map(a => a.description);
       let arraChartValues = this.listAccounts.map(a => {
-        return {data: [a.openingBalance], label:a.description, borderWidth:1};
+        console.log(a)
+        return {data: [a.openingBalance], label: a.Account.description, borderWidth: 1};
       });
       this.barChartData = arraChartValues;
       console.log(this.accountTotal);
@@ -79,5 +96,35 @@ export class DashboardrComponent implements OnInit {
     }
   }
 
+  async accountsReceivable() {
+    try {
+      //this.dataSourceAccountsReceivable = await this.transactionService.getTransactions(`status=0&type=1`);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async accountsScore() {
+    try {
+      let dataTransaction: any =  await this.transactionService.getTransactions(`status=0&type=0`);
+      this.dataSourceAccountsScore = dataTransaction.data;
+      this.accountTotalScore = dataTransaction.total[0].openingBalance;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+
+  navigatoToCreateTransaction() {
+    this.router.navigate(['list-transactions/create-transaction']);
+  }
+
+  navigatoToEditTransaction(idTransaction) {
+    this.router.navigate(['list-transactions/edit-transaction', idTransaction],{queryParams:{operation:'edit'}});
+  }
+
+  navigatoToConfirmTransaction(idTransaction) {
+    this.router.navigate(['list-transactions/confirm-transaction', idTransaction],{queryParams:{operation:'confirm'}});
+  }
 
 }

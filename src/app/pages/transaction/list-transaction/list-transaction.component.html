@@ -52,6 +52,12 @@
         </button>
 
         <mat-menu #menu="matMenu">
+
+          <button mat-menu-item (click)="navigatoToConfirmTransaction(element.id)" >
+            <mat-icon>done</mat-icon>
+            <span>Confirmar</span>
+          </button>
+
           <button mat-menu-item (click)="navigatoToEditTransaction(element.id)" >
             <mat-icon>mode_edit</mat-icon>
             <span>Alterar</span>

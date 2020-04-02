@@ -20,18 +20,36 @@ export class TransactionService {
       .toPromise();
   }
 
-  getTransactions(): Promise<Account[]> {
+  editTransaction(transaction: any): Promise<Transaction> {
+    return this.http.put<Transaction>(`${this.transactionUrl}/${transaction.id}`, transaction)
+      .toPromise();
+  }
+
+  getTransactions(params): Promise<Account[]> {
     const user = this.storageToken.getUser();
-    return this.http.get<any>(`${this.transactionUrl}/?user_id=${user.id}`)
+    if(params){
+      params = `&${params}`;
+    }else {params = '';}
+
+    return this.http.get<any>(`${this.transactionUrl}/?user_id=${user.id}${params}`)
       .toPromise()
       .then(response => {
-        return response.data;
+        return response;
       });
   }
 
   getTransaction(ID): Promise<Account[]> {
     const user = this.storageToken.getUser();
     return this.http.get<any>(`${this.transactionUrl}/${ID}?user_id=${user.id}`)
+      .toPromise()
+      .then(response => {
+        return response.data;
+      });
+  }
+
+  getTotais(): Promise<any[]> {
+    const user = this.storageToken.getUser();
+    return this.http.get<any>(`${this.transactionUrl}/total/?user_id=${user.id}`)
       .toPromise()
       .then(response => {
         return response.data;

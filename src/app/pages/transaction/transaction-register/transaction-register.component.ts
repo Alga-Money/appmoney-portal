@@ -1,12 +1,12 @@
 import {Component, EventEmitter, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {TransactionService} from '../transaction.service';
 import {StaticMessages} from '../../../shared/services/static-messages';
 import {CategoryService} from '../../category/category.service';
 import {AccountService} from '../../account/account.service';
 import {TokenStorageService} from '../../../shared/services/token-storage-service';
 import {MessageService} from 'primeng';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {SnackBarService} from '../../../shared/services/snack-bar.service';
 
 @Component({
@@ -15,6 +15,8 @@ import {SnackBarService} from '../../../shared/services/snack-bar.service';
   styleUrls: ['./transaction-register.component.css']
 })
 export class TransactionRegisterComponent implements OnInit {
+  private transationObj: any = null;
+  private  operation;
   listCategory: any;
   listAccounts: any;
   staticmsgs = StaticMessages;
@@ -31,11 +33,17 @@ export class TransactionRegisterComponent implements OnInit {
               private serviceAccount: AccountService,
               private storageToken: TokenStorageService,
               private route: ActivatedRoute,
+              private router: Router,
               private snackBarService: SnackBarService,
-) {
-}
+  ) {
+    this.route.queryParams
+      .subscribe(params => {
+        this.operation = params.operation
+        console.log(params); // {order: "popular"}
+      });
+  }
 
-ngOnInit() {
+  ngOnInit() {
     this.frmTransaction = this.fb.group({
         description: [null, Validators.required],
         note: [null, null],
@@ -64,10 +72,11 @@ ngOnInit() {
   }
 
 
-  async getTransaction(){
+  async getTransaction() {
     const paramId = this.route.snapshot.paramMap.get('transaction_id');
-    if(paramId) {
-      const transationObj = await this.service.getTransaction(paramId);
+    if (paramId) {
+      this.transationObj = await this.service.getTransaction(paramId);
+      this.frmTransaction = this.loadTransaction(this.transationObj);
     }
   }
 
@@ -84,29 +93,77 @@ ngOnInit() {
     const user = this.storageToken.getUser();
     this.frmTransaction.patchValue({
       userId: user.id,
-      status: 0,
+      status: this.operation === 'confirm' ? 1 : 0,
       paymentValue: this.frmTransaction.value.transactionValue,
       paymentDate: this.frmTransaction.value.dueDate
     });
 
     if (this.frmTransaction.valid) {
-      this.service.register(this.frmTransaction.value)
-        .then(response => {
-            console.log(response);
-            this.snackBarService.openSnackBar(this.staticmsgs.success, this.staticmsgs.dataSaved);
-          }
-        )
-        .catch(error => console.log(error));
+      if (!this.transationObj) {
+        this.service.register(this.frmTransaction.value)
+          .then(response => {
+              console.log(response);
+              this.snackBarService.openSnackBar(this.staticmsgs.success, this.staticmsgs.dataSaved);
+              this.navigatoToListTransaction();
+            }
+          )
+          .catch(error => console.log(error));
+      } else {
+        this.service.editTransaction(this.frmTransaction.value)
+          .then(response => {
+              console.log(response);
+              this.snackBarService.openSnackBar(this.staticmsgs.success, this.staticmsgs.dataSaved);
+              this.navigatoToListTransaction();
+            }
+          )
+          .catch(error => console.log(error));
+      }
+
     }
   }
 
   changeTransactionType(event) {
     let value = event.value;
     if (value === 2) {
-        this.accountTypeIsTransacntion = true;
-      } else {
-        this.accountTypeIsTransacntion = false;
-      }
+      this.accountTypeIsTransacntion = true;
+    } else {
+      this.accountTypeIsTransacntion = false;
+    }
   }
+
+  loadTransaction(transaction?: any) {
+    return new FormGroup({
+      id: new FormControl(transaction.id),
+      description: new FormControl(transaction.description, Validators.required),
+      note: new FormControl(transaction.note, null),
+      type: new FormControl(transaction.type, Validators.required),
+      status: new FormControl(transaction.status, Validators.required),
+      paymentDate: new FormControl(transaction.paymentDate, Validators.required),
+      dueDate: new FormControl(transaction.dueDate, Validators.required),
+      transactionValue: new FormControl(transaction.transactionValue, Validators.required),
+      paymentValue: new FormControl(transaction.paymentValue, Validators.required),
+      userId: new FormControl(transaction.userId, Validators.required),
+      categoryId: new FormControl(transaction.categoryId, Validators.required),
+      accountId: new FormControl(transaction.accountId, Validators.required),
+    });
+  }
+
+  navigatoToListTransaction() {
+    this.router.navigate(['list-transactions']);
+  }
+
+
+  getNameOperation(){
+    if(this.operation==='edit'){
+      return 'Salvar'
+    }else if (this.operation==='confirm'){
+      return 'Confirmar'
+    }else {
+      return 'Salvar'
+    }
+  }
+
+
+
 
 }

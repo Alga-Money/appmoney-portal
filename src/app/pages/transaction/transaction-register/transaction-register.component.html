@@ -4,7 +4,8 @@
     <div class="form-group">
       <mat-form-field>
         <mat-label>Nova</mat-label>
-        <mat-select  (selectionChange)="changeTransactionType($event)"  formControlName="type"  >
+        <mat-select [disabled]="operation==='confirm'" (selectionChange)="changeTransactionType($event)"
+                    formControlName="type">
           <mat-option *ngFor="let t of transationTypes" [value]="t.value">
             {{t.desc}}
           </mat-option>
@@ -26,11 +27,11 @@
 
     </div>
 
-    <div  class="form-group">
+    <div class="form-group">
       <mat-form-field>
         <mat-label>Data</mat-label>
-        <input matInput [matDatepicker]="picker"  formControlName="dueDate" >
-        <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+        <input matInput [matDatepicker]="picker" formControlName="dueDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
@@ -39,9 +40,9 @@
 
     <div class="form-group">
       <mat-form-field>
-        <mat-label *ngIf="accountTypeIsTransacntion" >Conta de origem</mat-label>
-        <mat-label *ngIf="!accountTypeIsTransacntion" >Conta</mat-label>
-        <mat-select formControlName="accountId"    >
+        <mat-label *ngIf="accountTypeIsTransacntion">Conta de origem</mat-label>
+        <mat-label *ngIf="!accountTypeIsTransacntion">Conta</mat-label>
+        <mat-select formControlName="accountId">
           <mat-option *ngFor="let c of listAccounts" [value]="c.id">
             {{c.description}}
           </mat-option>
@@ -50,10 +51,10 @@
     </div>
 
 
-    <div class="form-group" *ngIf="accountTypeIsTransacntion" >
+    <div class="form-group" *ngIf="accountTypeIsTransacntion">
       <mat-form-field>
-        <mat-label>Conta de destino </mat-label>
-        <mat-select formControlName="accountIdDesc"    >
+        <mat-label>Conta de destino</mat-label>
+        <mat-select formControlName="accountIdDesc">
           <mat-option *ngFor="let c of listAccounts" [value]="c.id">
             {{c.description}}
           </mat-option>
@@ -73,65 +74,72 @@
       </mat-form-field>
     </div>
 
-    <div class="form-group">
-      <mat-form-field>
-        <mat-label>Categoria</mat-label>
-        <mat-select  formControlName="categoryId"  >
-          <mat-option *ngFor="let c of listCategory" [value]="c.id">
-            {{c.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <div class="row">
+      <div class="col-8 d-flex">
+        <div class="form-group w-100">
+          <mat-form-field>
+            <mat-label>Categoria</mat-label>
+            <mat-select formControlName="categoryId">
+              <mat-option *ngFor="let c of listCategory" [value]="c.id">
+                {{c.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+      </div>
+      <div class="col-4">
+        <a mat-flat-button [routerLink]="['/list-categories/create-category']" class="d-flex">
+          <mat-icon aria-hidden="false">add</mat-icon>
+        </a>
+      </div>
     </div>
 
     <div class="form-group">
       <mat-form-field>
         <input class="form-control" matInput type="text" placeholder="Observação"
                formControlName="note">
-<!--        <mat-error-->
-<!--          *ngIf="frmTransaction.get('note').hasError('required')"-->
-<!--          class="text-danger">{{staticmsgs.obrigatoryRegister}}</mat-error>-->
+        <!--        <mat-error-->
+        <!--          *ngIf="frmTransaction.get('note').hasError('required')"-->
+        <!--          class="text-danger">{{staticmsgs.obrigatoryRegister}}</mat-error>-->
 
       </mat-form-field>
 
     </div>
 
-<!--    <div class="form-group">-->
-<!--      <mat-radio-group aria-label="Selecione o tipo da transação" formControlName="type">-->
-<!--        <mat-radio-button value="1">Entrada</mat-radio-button>-->
-<!--        <mat-radio-button value="2">saída</mat-radio-button>-->
-<!--      </mat-radio-group>-->
-<!--    </div>-->
+    <!--    <div class="form-group">-->
+    <!--      <mat-radio-group aria-label="Selecione o tipo da transação" formControlName="type">-->
+    <!--        <mat-radio-button value="1">Entrada</mat-radio-button>-->
+    <!--        <mat-radio-button value="2">saída</mat-radio-button>-->
+    <!--      </mat-radio-group>-->
+    <!--    </div>-->
 
 
+    <!--    <div class="form-group">-->
+    <!--      <mat-form-field>-->
+    <!--        <mat-label>Date de pagamento</mat-label>-->
+    <!--        <input matInput [matDatepicker]="dp" formControlName="paymentDate" >-->
+    <!--        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>-->
+    <!--        <mat-datepicker #dp></mat-datepicker>-->
+    <!--      </mat-form-field>-->
+
+    <!--    </div>-->
 
 
-<!--    <div class="form-group">-->
-<!--      <mat-form-field>-->
-<!--        <mat-label>Date de pagamento</mat-label>-->
-<!--        <input matInput [matDatepicker]="dp" formControlName="paymentDate" >-->
-<!--        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>-->
-<!--        <mat-datepicker #dp></mat-datepicker>-->
-<!--      </mat-form-field>-->
+    <!--    <div class="form-group">-->
+    <!--      <mat-form-field>-->
+    <!--        <input class="form-control" matInput type="number" placeholder="Valor pago"-->
+    <!--               formControlName="paymentValue"-->
+    <!--               currencyMask placeholder="R$ 0,00"-->
+    <!--        >-->
+    <!--      </mat-form-field>-->
 
-<!--    </div>-->
-
-
-
-<!--    <div class="form-group">-->
-<!--      <mat-form-field>-->
-<!--        <input class="form-control" matInput type="number" placeholder="Valor pago"-->
-<!--               formControlName="paymentValue"-->
-<!--               currencyMask placeholder="R$ 0,00"-->
-<!--        >-->
-<!--      </mat-form-field>-->
-
-<!--    </div>-->
+    <!--    </div>-->
 
     <div class="form-group form-text">
       <div class="row row justify-content-end">
         <div class="col-4">
-          <button mat-raised-button  color="primary" (click)="save()">Gravar</button>
+          <button mat-raised-button color="primary" (click)="save()">{{getNameOperation()}}</button>
         </div>
       </div>
     </div>
