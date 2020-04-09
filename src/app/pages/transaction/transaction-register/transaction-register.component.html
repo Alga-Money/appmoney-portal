@@ -136,10 +136,28 @@
 
     <!--    </div>-->
 
-    <div class="form-group form-text">
+    <div *ngIf="operation !== 'delete'" class="form-group form-text">
       <div class="row row justify-content-end">
         <div class="col-4">
           <button mat-raised-button color="primary" (click)="save()">{{getNameOperation()}}</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="operation==='delete'"  class="row">
+      <div class="col-6 form-group form-text">
+        <div class="row row justify-content-end">
+          <div class="col-4">
+            <button mat-raised-button color="accent" (click)="backPage()">Cancelar</button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="operation==='delete'" class="col-6 form-group form-text">
+        <div class="row row justify-content-end">
+          <div class="col-4">
+            <button mat-raised-button color="warn" (click)="delete()">Deletar</button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,11 @@
+<div class="custom_dialog_content">
+    <h2 class="alert_title">{{ title }}</h2>
+    <p class="alert_message col-12">{{ message }}</p>
+</div>
+<div class="custom_dialog_actions">
+    <div class="bottom_buttons">
+        <button type="button" mat-button (click)="dialogRef.close(true)">Continuar</button>
+        <button *ngIf='reject' type="button" mat-button (click)="dialogRef.close('reject')">Recusar</button>
+        <button type="button" mat-button (click)="dialogRef.close()">Cancelar</button>
+    </div>
+</div>

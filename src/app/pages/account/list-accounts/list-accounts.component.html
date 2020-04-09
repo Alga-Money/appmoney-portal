@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="mt-2">
-    <div *ngFor="let account of  listAccounts"  class="mt-2">
+  <div class="row mt-2">
+    <div *ngFor="let account of  listAccounts"  class="mt-2 col-md-6">
       <mat-card (click)="navigatoToEditAccount(account.id)" >
         <mat-card-header>
           <mat-card-title>
@@ -15,7 +15,7 @@
       </mat-card>
     </div>
 
-    <button class="fabButton mt-2" (click)="navigatoToCreateAccount()" mat-fab color="primary">
+    <button  mat-flat-button  class="mt-2" (click)="navigatoToCreateAccount()" mat-fab color="primary">
       <mat-icon aria-hidden="false">add</mat-icon>
     </button>
 

@@ -37,7 +37,8 @@ export class DashboardrComponent implements OnInit {
   mobWidth: number;
   mode: string;
   opened: boolean;
-  accountTotalScore:number;
+  accountTotalScore: number;
+  accountTotalReceivable: number;
 
   accountTotal: number = 0;
 
@@ -85,7 +86,7 @@ export class DashboardrComponent implements OnInit {
       this.accountTotal = await this.valueTotalAccounts();
       this.barChartLabels = [''];//this.listAccounts.map(a => a.description);
       let arraChartValues = this.listAccounts.map(a => {
-        console.log(a)
+        console.log(a);
         return {data: [a.openingBalance], label: a.Account.description, borderWidth: 1};
       });
       this.barChartData = arraChartValues;
@@ -98,7 +99,9 @@ export class DashboardrComponent implements OnInit {
 
   async accountsReceivable() {
     try {
-      //this.dataSourceAccountsReceivable = await this.transactionService.getTransactions(`status=0&type=1`);
+      const dataReceivable:any = await this.transactionService.getTransactions(`status=0&type=1`);
+      this.dataSourceAccountsReceivable = dataReceivable.data;
+      this.accountTotalReceivable = dataReceivable.total[0].openingBalance;
     } catch (e) {
       console.log(e);
     }
@@ -106,7 +109,7 @@ export class DashboardrComponent implements OnInit {
 
   async accountsScore() {
     try {
-      let dataTransaction: any =  await this.transactionService.getTransactions(`status=0&type=0`);
+      const dataTransaction: any = await this.transactionService.getTransactions(`status=0&type=0`);
       this.dataSourceAccountsScore = dataTransaction.data;
       this.accountTotalScore = dataTransaction.total[0].openingBalance;
     } catch (e) {
@@ -120,11 +123,11 @@ export class DashboardrComponent implements OnInit {
   }
 
   navigatoToEditTransaction(idTransaction) {
-    this.router.navigate(['list-transactions/edit-transaction', idTransaction],{queryParams:{operation:'edit'}});
+    this.router.navigate(['list-transactions/edit-transaction', idTransaction], {queryParams: {operation: 'edit'}});
   }
 
   navigatoToConfirmTransaction(idTransaction) {
-    this.router.navigate(['list-transactions/confirm-transaction', idTransaction],{queryParams:{operation:'confirm'}});
+    this.router.navigate(['list-transactions/confirm-transaction', idTransaction], {queryParams: {operation: 'confirm'}});
   }
 
 }

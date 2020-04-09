@@ -1,4 +1,25 @@
-<div class="container" xmlns="http://www.w3.org/1999/html">
+<div class="container" >
+
+  <div class="row">
+
+    <div class="col-sm d-flex">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker1"  [formControl]="startDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker2" [formControl]="endDate" >
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+
+      <button (click)="getData()" >Filtrar</button>
+
+    </div>
+
+  </div>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100">
 
@@ -14,14 +35,30 @@
     <!-- Name Column -->
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef></th>
+
       <td mat-cell *matCellDef="let element">
-        <div>
-         <span class="description">
+        <div class="row">
+          <div class="col-12">
+              <span class="description">
            {{element.description}}
          </span>
-          <span class="category">
-            <mat-chip matTooltip="Categoria">{{element.Category.name}}</mat-chip>
+          </div>
+
+          <div class="col-md-12">
+            <div class="col-md-6">
+                    <span matTooltip="Categoria" class="badge badge-info">
+             {{element.Category.name}}
           </span>
+            </div>
+
+            <div class="col-md-6">
+             <span  matTooltip="Conta" class="badge badge-primary">
+            {{element.Account.description}}
+          </span>
+            </div>
+          </div>
+
+
         </div>
       </td>
     </ng-container>
@@ -29,6 +66,7 @@
     <!-- Symbol Column -->
     <ng-container matColumnDef="paymentValue">
       <th mat-header-cell *matHeaderCellDef></th>
+
       <td mat-cell *matCellDef="let element">
 
         <div *ngIf="element.type===0">
@@ -53,18 +91,18 @@
 
         <mat-menu #menu="matMenu">
 
-          <button mat-menu-item (click)="navigatoToConfirmTransaction(element.id)" >
+          <button mat-menu-item (click)="navigatoToConfirmTransaction(element.id)">
             <mat-icon>done</mat-icon>
             <span>Confirmar</span>
           </button>
 
-          <button mat-menu-item (click)="navigatoToEditTransaction(element.id)" >
+          <button mat-menu-item (click)="navigatoToEditTransaction(element.id)">
             <mat-icon>mode_edit</mat-icon>
             <span>Alterar</span>
           </button>
 
 
-          <button mat-menu-item>
+          <button mat-menu-item (click)="navigatoToDeleteTransaction(element.id)">
             <mat-icon>delete</mat-icon>
             <span>Excluir</span>
           </button>
@@ -86,6 +124,8 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
+
+  <mat-paginator [length]="totalPages" [pageSize]="20"></mat-paginator>
 
   <div class="form-group form-text">
     <div class="row justify-content-end">

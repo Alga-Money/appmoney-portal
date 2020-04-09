@@ -13,6 +13,7 @@ const routes: Routes = [
       {path: 'create-transaction', component: TransactionRegisterComponent},
       {path: 'edit-transaction/:transaction_id', component: TransactionRegisterComponent},
       {path: 'confirm-transaction/:transaction_id', component: TransactionRegisterComponent},
+      {path: 'delete-transaction/:transaction_id', component: TransactionRegisterComponent},
       {path: '**', redirectTo: ''}
 
 

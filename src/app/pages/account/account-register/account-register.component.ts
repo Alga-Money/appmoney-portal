@@ -8,6 +8,7 @@ import {SnackBarService} from '../../../shared/services/snack-bar.service';
 import {ActivatedRoute} from '@angular/router';
 import {TokenStorageService} from '../../../shared/services/token-storage-service';
 import {MessageService} from 'primeng';
+import {Location} from '@angular/common';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class AccountRegisterComponent implements OnInit {
               private snackBarService: SnackBarService,
               private route: ActivatedRoute,
               private storageToken: TokenStorageService,
+              private _location: Location
   ) {
     this.frmAccount = this.fb.group({
       id: [null, null],
@@ -85,6 +87,7 @@ export class AccountRegisterComponent implements OnInit {
         this.accountService.registerAccount(this.frmAccount.value)
           .then(response => {
               this.snackBarService.openSnackBar(this.staticmsgs.success, this.staticmsgs.dataSaved);
+            this._location.back();
             }
           )
           .catch(error => {
@@ -95,6 +98,7 @@ export class AccountRegisterComponent implements OnInit {
         this.accountService.editAccount(this.frmAccount.value)
           .then(response => {
               this.snackBarService.openSnackBar(this.staticmsgs.success, this.staticmsgs.dataSaved);
+            this._location.back();
             }
           )
           .catch(error => {

@@ -25,7 +25,7 @@ export class TransactionService {
       .toPromise();
   }
 
-  getTransactions(params): Promise<Account[]> {
+  getTransactions(params): Promise<any[]> {
     const user = this.storageToken.getUser();
     if(params){
       params = `&${params}`;
@@ -56,4 +56,7 @@ export class TransactionService {
       });
   }
 
+  delete(ID): Promise<any> {
+    return this.http.delete<Transaction>(`${this.transactionUrl}/${ID}`).toPromise();
+  }
 }

@@ -5,9 +5,9 @@ import {StaticMessages} from '../../../shared/services/static-messages';
 import {CategoryService} from '../../category/category.service';
 import {AccountService} from '../../account/account.service';
 import {TokenStorageService} from '../../../shared/services/token-storage-service';
-import {MessageService} from 'primeng';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SnackBarService} from '../../../shared/services/snack-bar.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-transaction-register',
@@ -16,7 +16,7 @@ import {SnackBarService} from '../../../shared/services/snack-bar.service';
 })
 export class TransactionRegisterComponent implements OnInit {
   private transationObj: any = null;
-  private  operation;
+  private operation;
   listCategory: any;
   listAccounts: any;
   staticmsgs = StaticMessages;
@@ -35,11 +35,11 @@ export class TransactionRegisterComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private snackBarService: SnackBarService,
+              private _location: Location
   ) {
     this.route.queryParams
       .subscribe(params => {
-        this.operation = params.operation
-        console.log(params); // {order: "popular"}
+        this.operation = params.operation;
       });
   }
 
@@ -122,6 +122,17 @@ export class TransactionRegisterComponent implements OnInit {
     }
   }
 
+
+  async delete() {
+    try {
+      let ret = await this.service.delete(this.transationObj.id);
+      this.snackBarService.openSnackBar(this.staticmsgs.success, this.staticmsgs.dataRemoved);
+      this._location.back();
+    } catch (e) {
+      this.snackBarService.openSnackBar(this.staticmsgs.success, this.staticmsgs.errorMessage);
+    }
+  }
+
   changeTransactionType(event) {
     let value = event.value;
     if (value === 2) {
@@ -153,17 +164,20 @@ export class TransactionRegisterComponent implements OnInit {
   }
 
 
-  getNameOperation(){
-    if(this.operation==='edit'){
-      return 'Salvar'
-    }else if (this.operation==='confirm'){
-      return 'Confirmar'
-    }else {
-      return 'Salvar'
+  getNameOperation() {
+    if (this.operation === 'edit') {
+      return 'Salvar';
+    } else if (this.operation === 'confirm') {
+      return 'Confirmar';
+    } else {
+      return 'Salvar';
     }
   }
 
 
+  backPage() {
+    this._location.back();
+  }
 
 
 }
