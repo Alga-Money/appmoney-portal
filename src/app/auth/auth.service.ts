@@ -18,7 +18,7 @@ export class AuthService {
 
 
   register(user) {
-     return this.httpService.post<any>('/auth/signup', user, null).toPromise();
+     return this.httpService.post<any>('auth/signup', user).toPromise();
    }
 
 }
