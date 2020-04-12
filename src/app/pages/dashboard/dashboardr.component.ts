@@ -87,7 +87,7 @@ export class DashboardrComponent implements OnInit {
       this.barChartLabels = [''];//this.listAccounts.map(a => a.description);
       let arraChartValues = this.listAccounts.map(a => {
         console.log(a);
-        return {data: [a.openingBalance], label: a.Account.description, borderWidth: 1};
+        return {data: [a.openingBalance], label: a.account.description, borderWidth: 1};
       });
       this.barChartData = arraChartValues;
       console.log(this.accountTotal);
