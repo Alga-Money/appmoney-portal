@@ -1,20 +1,22 @@
 <div class="container">
   <div class="mt-2">
-    <div *ngFor="let category of  listCategories"  class="mt-2">
-      <mat-card >
-        <mat-card-header>
-          <mat-card-title>
-            {{category.description}}
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-        </mat-card-content>
-      </mat-card>
+    <div class="row">
+      <div *ngFor="let category of  listCategories"  class="col-md-6 mt-2">
+        <mat-card >
+          <mat-card-header>
+            <mat-card-title>
+              {{category.name}}
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </div>
-
-    <button class="fabButton mt-2"  mat-fab color="primary">
+    <div class="form-group" >
+    <button class="fabButton mt-2" (click)="navigateToCreateCategory()" mat-fab color="primary">
       <mat-icon aria-hidden="false">add</mat-icon>
     </button>
-
+  </div>
   </div>
 </div>

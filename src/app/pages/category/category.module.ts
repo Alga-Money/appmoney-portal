@@ -6,13 +6,15 @@ import { ListCategoryComponent } from './list-category/list-category.component';
 import {AngularMaterialModule} from '../../angular-material.module';
 import {RegisterCategoryComponent} from './register-category/category.component';
 import {CategoryComponent} from './category.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [ListCategoryComponent, CategoryComponent, RegisterCategoryComponent],
   imports: [
     CommonModule,
     AngularMaterialModule,
-    CategoryRoutingModule
+    CategoryRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class CategoryModule { }

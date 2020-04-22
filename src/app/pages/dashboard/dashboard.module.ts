@@ -1,21 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import {DashboardRoutingModule} from './dashboard-routing.module';
 import { DashboardrComponent } from './dashboardr.component';
 import {AngularMaterialModule} from '../../angular-material.module';
-import { DashboardSidebarComponent } from './dashboard-sidebar/dashboard-sidebar.component';
-import { DashboardFooterComponent } from './dashboard-footer/dashboard-footer.component';
+import {ChartsModule} from 'ng2-charts';
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, DashboardrComponent, DashboardSidebarComponent, DashboardFooterComponent],
-  exports: [DashboardComponent],
+  declarations: [ DashboardrComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    ChartsModule
   ]
 })
 export class DashboardModule { }

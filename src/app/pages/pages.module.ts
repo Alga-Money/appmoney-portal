@@ -6,6 +6,7 @@ import {FooterComponent} from '../shared/footer/footer.component';
 import {AngularMaterialModule} from '../angular-material.module';
 import {PagesRoutingModule} from './pages.routing';
 import {AccountService} from './account/account.service';
+import {DashboardService} from './dashboard/dashboard.service';
 
 
 
@@ -19,7 +20,7 @@ import {AccountService} from './account/account.service';
     PagesRoutingModule,
   ],
   providers: [
-    AccountService
+    AccountService, DashboardService
   ]
 })
 export class PagesModule { }

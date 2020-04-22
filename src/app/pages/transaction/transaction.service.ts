@@ -16,17 +16,47 @@ export class TransactionService {
 
 
   register(transaction: Transaction): Promise<Transaction> {
-    console.log(transaction);
     return this.http.post<Transaction>(this.transactionUrl, transaction)
       .toPromise();
   }
 
-  getTransactions(): Promise<Account[]> {
+  editTransaction(transaction: any): Promise<Transaction> {
+    return this.http.put<Transaction>(`${this.transactionUrl}/${transaction.id}`, transaction)
+      .toPromise();
+  }
+
+  getTransactions(params): Promise<any[]> {
     const user = this.storageToken.getUser();
-    return this.http.get<any>(`${this.transactionUrl}/?user_id=${user.id}`)
+    if(params){
+      params = `&${params}`;
+    }else {params = '';}
+
+    return this.http.get<any>(`${this.transactionUrl}/?user_id=${user.id}${params}`)
+      .toPromise()
+      .then(response => {
+        return response;
+      });
+  }
+
+  getTransaction(ID): Promise<Account[]> {
+    const user = this.storageToken.getUser();
+    return this.http.get<any>(`${this.transactionUrl}/${ID}?user_id=${user.id}`)
       .toPromise()
       .then(response => {
         return response.data;
       });
+  }
+
+  getTotais(): Promise<any[]> {
+    const user = this.storageToken.getUser();
+    return this.http.get<any>(`${this.transactionUrl}/total/?user_id=${user.id}`)
+      .toPromise()
+      .then(response => {
+        return response.data;
+      });
+  }
+
+  delete(ID): Promise<any> {
+    return this.http.delete<Transaction>(`${this.transactionUrl}/${ID}`).toPromise();
   }
 }

@@ -1,1 +1,279 @@
-<div>DashBoard</div>
+<div class="container">
+  <div class="row mt-1">
+
+    <div class="col-md-6">
+      <div class="card">
+
+      <span class="text-center">
+        <h3>Saldos de caixa</h3>
+      </span>
+
+        <div class="ml-1" *ngFor="let account of listAccounts">
+        <span><h6>
+        {{account.account.description}}
+          {{account.openingBalance | currency: 'BRL'}}</h6></span>
+        </div>
+
+        <div class="col-12 text-center">
+          <span><h4>Total: {{accountTotal | currency: 'BRL'}}</h4></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card">
+        <span>Resultados de caixa</span>
+        <div class="chart-result-caixa">
+          <canvas baseChart
+                  [datasets]="barChartData"
+                  [labels]="barChartLabels"
+                  [options]="barChartOptions"
+                  [plugins]="barChartPlugins"
+                  [legend]="barChartLegend"
+                  [chartType]="barChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- Tabela de contas a pagar -->
+  <div class="row">
+    <div class="col-md-6">
+        <span class="text-center">
+        <h3>Contas  a pagar</h3>
+
+      </span>
+
+      <table mat-table [dataSource]="dataSourceAccountsScore" class="mat-elevation-z8 w-100">
+
+        <!-- Position Column -->
+        <ng-container class="dueDate" matColumnDef="dueDate">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">{{element.dueDate | date:'dd/MM/yyyy'}} </td>
+          <td mat-footer-cell *matFooterCellDef>Total</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <div>
+
+              <div class="col-12">
+              <span class="description">
+           {{element.description}}
+         </span>
+              </div>
+
+              <div class="col-md-12">
+                <div class="col-md-6">
+                    <span matTooltip="Categoria" class="badge badge-info">
+             {{element.Category.name}}
+          </span>
+                </div>
+
+                <div class="col-md-6">
+             <span matTooltip="Conta" class="badge badge-primary">
+            {{element.Account.description}}
+          </span>
+                </div>
+              </div>
+
+
+            </div>
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="paymentValue">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+
+            <div *ngIf="element.type===0">
+              <span [ngClass]="{'transaction-saida' : element.type === 0  }">
+              {{element.paymentValue  | currency: 'BRL' }}</span>
+            </div>
+
+          </td>
+          <td mat-footer-cell *matFooterCellDef>  {{accountTotalScore  | currency: 'BRL'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="star" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+
+            <mat-menu #menu="matMenu">
+
+              <button mat-menu-item (click)="navigatoToConfirmTransaction(element.id)">
+                <mat-icon>done</mat-icon>
+                <span>Confirmar</span>
+              </button>
+
+              <button mat-menu-item (click)="navigatoToEditTransaction(element.id)">
+                <mat-icon>mode_edit</mat-icon>
+                <span>Alterar</span>
+              </button>
+
+
+              <button mat-menu-item>
+                <mat-icon>delete</mat-icon>
+                <span>Excluir</span>
+              </button>
+
+
+              <mat-divider></mat-divider>
+
+              <button mat-menu-item>
+                <mat-icon>content_copy</mat-icon>
+                <span>Duplicar</span>
+              </button>
+
+
+            </mat-menu>
+
+
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns" class="example-first-footer-row"></tr>
+
+      </table>
+
+    </div>
+
+
+    <!-- Tabela de contas a receber -->
+    <div class="col-md-6">
+        <span class="text-center">
+        <h3>Contas  a receber</h3>
+      </span>
+
+      <table mat-table [dataSource]="dataSourceAccountsReceivable" class="mat-elevation-z8 w-100">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Position Column -->
+        <ng-container class="dueDate" matColumnDef="dueDate">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">{{element.dueDate | date:'dd/MM/yyyy'}} </td>
+          <td mat-footer-cell *matFooterCellDef>Total</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <div>
+              <div class="col-12">
+              <span class="description">
+           {{element.description}}
+         </span>
+              </div>
+
+              <div class="col-md-12">
+                <div class="col-md-6">
+                    <span matTooltip="Categoria" class="badge badge-info">
+             {{element.Category.name}}
+          </span>
+                </div>
+
+                <div class="col-md-6">
+             <span matTooltip="Conta" class="badge badge-primary">
+            {{element.Account.description}}
+          </span>
+                </div>
+              </div>
+
+
+            </div>
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="paymentValue">
+          <th mat-header-cell *matHeaderCellDef></th>
+
+          <td mat-cell *matCellDef="let element">
+
+            <div *ngIf="element.type===0">
+              <span [ngClass]="{'transaction-saida' : element.type === 0  }">
+              {{element.paymentValue * -1 | currency: 'BRL' }}</span>
+            </div>
+
+            <div *ngIf="element.type===1">
+              <span [ngClass]="{'transaction-entrada' : element.type === 1  }">
+              {{element.paymentValue  | currency: 'BRL' }}</span>
+            </div>
+
+          </td>
+
+          <td mat-footer-cell *matFooterCellDef>  {{accountTotalReceivable  | currency: 'BRL'}} </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="star" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef></th>
+
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+
+            <mat-menu #menu="matMenu">
+
+              <button mat-menu-item (click)="navigatoToConfirmTransaction(element.id)">
+                <mat-icon>done</mat-icon>
+                <span>Confirmar</span>
+              </button>
+
+              <button mat-menu-item (click)="navigatoToEditTransaction(element.id)">
+                <mat-icon>mode_edit</mat-icon>
+                <span>Alterar</span>
+              </button>
+
+
+              <button mat-menu-item>
+                <mat-icon>delete</mat-icon>
+                <span>Excluir</span>
+              </button>
+
+
+              <mat-divider></mat-divider>
+
+              <button mat-menu-item>
+                <mat-icon>content_copy</mat-icon>
+                <span>Duplicar</span>
+              </button>
+
+
+            </mat-menu>
+
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+
+      </table>
+
+    </div>
+
+
+  </div>
+
+</div>

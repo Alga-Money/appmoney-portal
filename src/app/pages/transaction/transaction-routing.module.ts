@@ -11,7 +11,9 @@ const routes: Routes = [
     children: [
       {path: '', pathMatch: 'full', component: ListTransactionComponent},
       {path: 'create-transaction', component: TransactionRegisterComponent},
-     // {path: 'edit-transaction/:transaction_id', component: AccountRegisterComponent},
+      {path: 'edit-transaction/:transaction_id', component: TransactionRegisterComponent},
+      {path: 'confirm-transaction/:transaction_id', component: TransactionRegisterComponent},
+      {path: 'delete-transaction/:transaction_id', component: TransactionRegisterComponent},
       {path: '**', redirectTo: ''}
 
 

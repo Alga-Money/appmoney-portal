@@ -46,6 +46,15 @@ export class AccountService {
       });
   }
 
+  getAcountsDashboard(): Promise<Account[]> {
+    const user = this.storageToken.getUser();
+    return this.http.get<any>(`${this.accountUrl}/?user_id=${user.id}&dashboard=true`)
+      .toPromise()
+      .then(response => {
+        return response.data;
+      });
+  }
+
 
   getAcountsById(ID): Promise<Account[]> {
     return this.http.get<any>(`${this.accountUrl}/${ID}`)

@@ -17,6 +17,9 @@ import {CoreModule} from './core/core.module';
 import {ScrollTopService} from './shared/services/scrolltop.service';
 import {APP_BASE_HREF, PlatformLocation} from '@angular/common';
 import {CurrencyMaskModule} from 'ng2-currency-mask';
+import {ChartsModule} from 'ng2-charts';
+import {ConfirmDialogComponent} from './shared/confirm-dialog/confirm-dialog.component';
+import {DialogsService} from './shared/services/dialog.service';
 
 
 
@@ -28,6 +31,7 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
 @NgModule({
   declarations: [
     AppComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -42,12 +46,14 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
     ReactiveFormsModule,
     RouterModule,
     CoreModule,
-    CurrencyMaskModule
+    CurrencyMaskModule,
+    ChartsModule,
   ],
   providers: [HttpService,
               SnackBarService,
               ScrollTopService,
-        {provide: APP_BASE_HREF, useFactory: getBaseHref, deps: [PlatformLocation]}],
+              DialogsService,
+    {provide: APP_BASE_HREF, useFactory: getBaseHref, deps: [PlatformLocation]}],
   bootstrap: [AppComponent]
 })
 export class AppModule {
