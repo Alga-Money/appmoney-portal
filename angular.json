@@ -135,5 +135,8 @@
       }
     }
   },
-  "defaultProject": "appmoney-portal"
+  "defaultProject": "appmoney-portal",
+  "cli": {
+    "analytics": false
+  }
 }

@@ -27,6 +27,7 @@ export class RegisterCategoryComponent implements OnInit {
       {
         name: [null, Validators.required],
         isActive: [null, Validators.required],
+        type: [null, Validators.required],
         userId: [null, null],
         color: [null, null],
       }

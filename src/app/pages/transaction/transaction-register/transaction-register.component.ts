@@ -16,8 +16,8 @@ import {Location} from '@angular/common';
 })
 export class TransactionRegisterComponent implements OnInit {
   private transationObj: any = null;
-  private operation;
   listCategory: any;
+  operation;
   listAccounts: any;
   staticmsgs = StaticMessages;
   public frmTransaction: FormGroup;
@@ -35,7 +35,7 @@ export class TransactionRegisterComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private snackBarService: SnackBarService,
-              private _location: Location
+              private _location: Location,
   ) {
     this.route.queryParams
       .subscribe(params => {

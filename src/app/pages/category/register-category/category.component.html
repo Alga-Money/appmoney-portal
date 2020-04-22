@@ -1,8 +1,20 @@
 <div class="container card">
   <form [formGroup]="frmCategory">
 
-    <div class="form-group">
 
+    <div class="form-group">
+      <mat-radio-group aria-label="Selecione o tipo da categoria" formControlName="type">
+        <mat-radio-button value="1">Entrada</mat-radio-button>
+        <mat-radio-button value="2">saída</mat-radio-button>
+
+        <mat-error
+          *ngIf="frmCategory.get('type').hasError('required')"
+          class="text-danger">{{staticmsgs.obrigatoryRegister}}</mat-error>
+
+      </mat-radio-group>
+    </div>
+
+    <div class="form-group">
       <mat-form-field>
         <input class="form-control" matInput type="text" placeholder="Descrição"
                formControlName="name" required>
