@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: "https://appmoneyserver.herokuapp.com",
+  apiUrl: "https://api.appmoneygestor.com.brr",
 };
