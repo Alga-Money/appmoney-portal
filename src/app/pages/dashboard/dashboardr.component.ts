@@ -81,9 +81,10 @@ export class DashboardrComponent implements OnInit {
 
   async getAccounts() {
     try {
+      debugger
       this.listAccounts = await this.dashboardService.getTotais();
-      // this.listAccounts = await this.accountService.getAcountsDashboard();
-      this.accountTotal = await this.valueTotalAccounts();
+      this.accountTotal =  this.listAccounts.total;//this.listAccounts.totalAccounts; //await this.valueTotalAccounts();
+      this.listAccounts = this.listAccounts.ret;
       this.barChartLabels = [''];//this.listAccounts.map(a => a.description);
       let arraChartValues = this.listAccounts.map(a => {
         console.log(a);
@@ -100,8 +101,10 @@ export class DashboardrComponent implements OnInit {
   async accountsReceivable() {
     try {
       const dataReceivable:any = await this.transactionService.getTransactions(`status=0&type=1`);
-      this.dataSourceAccountsReceivable = dataReceivable.data;
-      this.accountTotalReceivable = dataReceivable.total[0].openingBalance;
+      if(dataReceivable.data.length>0){
+        this.dataSourceAccountsReceivable = dataReceivable.data;
+        this.accountTotalReceivable = dataReceivable.total[0].openingBalance;
+      }
     } catch (e) {
       console.log(e);
     }
