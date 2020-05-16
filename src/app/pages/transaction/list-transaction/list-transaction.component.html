@@ -97,6 +97,23 @@
           </td>
         </ng-container>
 
+
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef></th>
+
+          <td mat-cell *matCellDef="let element">
+            <div *ngIf="element.status===1">
+                <span matTooltip="Confirmada">
+                  <mat-icon>done</mat-icon>
+                </span>
+            </div>
+          </td>
+
+        </ng-container>
+
+
+
         <!-- Symbol Column -->
         <ng-container matColumnDef="paymentValue">
           <th mat-header-cell *matHeaderCellDef></th>
