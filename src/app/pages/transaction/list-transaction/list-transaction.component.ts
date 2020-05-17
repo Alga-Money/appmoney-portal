@@ -94,7 +94,6 @@ export class ListTransactionComponent implements OnInit {
   async getData() {
     if (this.startDate.valid && this.endDate.valid) {
       const data: any = await this.serviceTransaction.getTransactions(`date_start=${this.startDate.value.toISOString()}&date_end=${this.endDate.value.toISOString()}`);
-      debugger
       this.dataSource = data.data;
       this.totalPages = data.meta.pageSize;
 
