@@ -93,8 +93,6 @@ export class ListTransactionComponent implements OnInit {
 
   async getData() {
     if (this.startDate.valid && this.endDate.valid) {
-      this.startDate.value.setHours(0,0,0,0);
-      this.endDate.value.setHours(23,59,59,9999);
       const data: any = await this.serviceTransaction.getTransactions(`date_start=${this.startDate.value.toISOString()}&date_end=${this.endDate.value.toISOString()}`);
       debugger
       this.dataSource = data.data;
