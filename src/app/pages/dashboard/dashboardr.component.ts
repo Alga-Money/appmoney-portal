@@ -32,7 +32,6 @@ export class DashboardrComponent implements OnInit {
   ];
 
   listAccounts: any;
-  listAccountsReceivable: any;
   mobHeight: number;
   mobWidth: number;
   mode: string;
@@ -76,19 +75,27 @@ export class DashboardrComponent implements OnInit {
   }
 
   valueTotalAccounts() {
-    return this.listAccounts.map(a => a.openingBalance).reduce((a, b) => a + b, 0);
+    debugger
+    let total = 0.0;
+    this.listAccounts.forEach(item => total += Number(item.openingBalance) );
+
+    return total;
+
+//    return this.listAccounts.forEach((a, b) => a + b, 0);
+//    var total = this.listAccounts.reduce(function(total, numero){
+//        return total + numero;
+//       }, 0);
   }
 
   async getAccounts() {
     try {
       debugger
-      this.listAccounts = await this.dashboardService.getTotais();
-      this.accountTotal =  this.listAccounts.total;//this.listAccounts.totalAccounts; //await this.valueTotalAccounts();
-      this.listAccounts = this.listAccounts.ret;
+      this.listAccounts = await this.accountService.getAcounts();
+      this.accountTotal = this.valueTotalAccounts();
       this.barChartLabels = [''];//this.listAccounts.map(a => a.description);
       let arraChartValues = this.listAccounts.map(a => {
         console.log(a);
-        return {data: [a.openingBalance], label: a.account.description, borderWidth: 1};
+        return {data: [a.openingBalance], label: a.description, borderWidth: 1};
       });
       this.barChartData = arraChartValues;
       console.log(this.accountTotal);
