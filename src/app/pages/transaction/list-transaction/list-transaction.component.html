@@ -142,7 +142,7 @@
 
             <mat-menu #menu="matMenu">
 
-              <button mat-menu-item (click)="navigatoToConfirmTransaction(element.id)">
+              <button [disabled]="element.status==1" mat-menu-item (click)="navigatoToConfirmTransaction(element.id)">
                 <mat-icon>done</mat-icon>
                 <span>Confirmar</span>
               </button>
