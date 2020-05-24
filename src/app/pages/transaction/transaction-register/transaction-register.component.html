@@ -16,7 +16,7 @@
     <div class="form-group">
 
       <mat-form-field>
-        <input class="form-control" matInput type="number" placeholder="Valor"
+        <input class="form-control" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"  matInput  placeholder="Valor"
                formControlName="transactionValue" required>
 
         <mat-error
