@@ -8,6 +8,9 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 
 import * as moment from 'moment';
 import 'moment/locale/pt-br';
+import {AccountService} from '../../account/account.service';
+import {CategoryService} from '../../category/category.service';
+import {QueryString} from '../../../shared/services/common-service';
 
 
 export const MY_FORMATS = {
@@ -47,32 +50,44 @@ export class ListTransactionComponent implements OnInit {
 
   financialIncome = 0.00;
   financialExpenses = 0.00;
+  listAccounts: any;
+  listCategory: any;
+
+  categoryId: any;
+  accountId: any;
+
 
   dataSource = [];
   dateSearch = new Date();
   startDate: any;
   endDate: any;
 
+  queryString: QueryString = {};
 
-  //Pagination
-  totalPages:number = 0;
-  totalRows:number = 0;
+  totalPages: number = 0;
+  totalRows: number = 0;
 
-  constructor(private router: Router, private serviceTransaction: TransactionService) {
+  constructor(private router: Router,
+              private serviceTransaction: TransactionService,
+              private serviceCategory: CategoryService,
+              private serviceAccount: AccountService) {
     const date = moment();
     const dateFormated = date.format('DD/MM/YYYY');
-    console.log(dateFormated);
 
     this.startDate = new FormControl(new Date());
     this.endDate = new FormControl(new Date());
+    this.categoryId = new FormControl(0);
+    this.accountId = new FormControl(0);
 
   }
 
   ngOnInit() {
     this.getData();
+    this.getAccounts();
+    this.getCategories();
   }
 
-  displayedColumns: string[] = ['dueDate', 'description','status','paymentValue', 'star'];
+  displayedColumns: string[] = ['dueDate', 'description', 'status', 'paymentValue', 'star'];
 
   navigatoToCreateTransaction() {
     this.router.navigate(['list-transactions/create-transaction']);
@@ -93,7 +108,13 @@ export class ListTransactionComponent implements OnInit {
 
   async getData() {
     if (this.startDate.valid && this.endDate.valid) {
-      const data: any = await this.serviceTransaction.getTransactions(`date_start=${this.startDate.value.toISOString()}&date_end=${this.endDate.value.toISOString()}`);
+      debugger
+      this.queryString.date_start = this.startDate.value.toISOString();
+      this.queryString.date_end   = this.endDate.value.toISOString();
+      this.queryString.accountId  = this.accountId.value;
+      this.queryString.categoryId = this.categoryId.value;
+      const data: any = await this.serviceTransaction.
+            getTransactions(this.queryString);
       this.dataSource = data.data;
       this.totalPages = data.meta.pageSize;
 
@@ -101,5 +122,12 @@ export class ListTransactionComponent implements OnInit {
 
   }
 
+  async getAccounts() {
+    this.listAccounts = await this.serviceAccount.getAcounts();
+  }
+
+  async getCategories() {
+    this.listCategory = await this.serviceCategory.getCategories();
+  }
 
 }

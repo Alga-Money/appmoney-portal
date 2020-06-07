@@ -20,6 +20,7 @@ import {CurrencyMaskModule} from 'ng2-currency-mask';
 import {ChartsModule} from 'ng2-charts';
 import {ConfirmDialogComponent} from './shared/confirm-dialog/confirm-dialog.component';
 import {DialogsService} from './shared/services/dialog.service';
+import {CommonService} from './shared/services/common-service';
 
 
 
@@ -53,6 +54,7 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
               SnackBarService,
               ScrollTopService,
               DialogsService,
+              CommonService,
     {provide: APP_BASE_HREF, useFactory: getBaseHref, deps: [PlatformLocation]}],
   bootstrap: [AppComponent]
 })
