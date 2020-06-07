@@ -9,8 +9,10 @@ import {TransactionRoutingModule} from './transaction-routing.module';
 import {TransactionService} from './transaction.service';
 import { ListTransactionComponent } from './list-transaction/list-transaction.component';
 import {CurrencyMaskModule} from 'ng2-currency-mask';
+import { ListTransactionOpenedComponent } from './list-transaction-opened/list-transaction-opened.component';
+import { ListTransactionClosedComponent } from './list-transaction-closed/list-transaction-closed.component';
 @NgModule({
-  declarations: [TransactionRegisterComponent, TransactionComponent, ListTransactionComponent],
+  declarations: [TransactionRegisterComponent, TransactionComponent, ListTransactionComponent, ListTransactionOpenedComponent, ListTransactionClosedComponent],
     imports: [
         CommonModule,
         ReactiveFormsModule,

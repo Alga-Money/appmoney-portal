@@ -6,6 +6,7 @@ import {Label} from 'ng2-charts';
 import {TransactionService} from '../transaction/transaction.service';
 import {DashboardService} from './dashboard.service';
 import {Router} from '@angular/router';
+import {QueryString} from '../../shared/services/common-service';
 
 @Component({
   selector: 'app-dashboardr',
@@ -40,6 +41,7 @@ export class DashboardrComponent implements OnInit {
   accountTotalReceivable: number;
 
   accountTotal: number = 0;
+  queryString: QueryString = {};
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -107,7 +109,9 @@ export class DashboardrComponent implements OnInit {
 
   async accountsReceivable() {
     try {
-      const dataReceivable:any = await this.transactionService.getTransactions(`status=0&type=1`);
+      this.queryString.type   = '1';
+      this.queryString.status = '0';
+      const dataReceivable: any = await this.transactionService.getTransactions(this.queryString);
       if(dataReceivable.data.length>0){
         this.dataSourceAccountsReceivable = dataReceivable.data;
         this.accountTotalReceivable = dataReceivable.total[0].openingBalance;
@@ -119,7 +123,9 @@ export class DashboardrComponent implements OnInit {
 
   async accountsScore() {
     try {
-      const dataTransaction: any = await this.transactionService.getTransactions(`status=0&type=0`);
+      this.queryString.type   = '0';
+      this.queryString.status = '0';
+      const dataTransaction: any = await this.transactionService.getTransactions(this.queryString);
       this.dataSourceAccountsScore = dataTransaction.data;
       this.accountTotalScore = dataTransaction.total[0].openingBalance;
     } catch (e) {

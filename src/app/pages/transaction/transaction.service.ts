@@ -3,6 +3,7 @@ import {HttpService} from '../../shared/services/http-service';
 import {environment} from '../../../environments/environment';
 import {Account, AccountType, Transaction} from '../../core/model';
 import {TokenStorageService} from '../../shared/services/token-storage-service';
+import {CommonService, QueryString} from '../../shared/services/common-service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,9 @@ import {TokenStorageService} from '../../shared/services/token-storage-service';
 export class TransactionService {
   transactionUrl: string;
 
-  constructor(private http: HttpService, private storageToken: TokenStorageService) {
+  constructor(private http: HttpService,
+              private storageToken: TokenStorageService,
+              private commonService: CommonService) {
     this.transactionUrl      =  `transactions`;
   }
 
@@ -25,13 +28,13 @@ export class TransactionService {
       .toPromise();
   }
 
-  getTransactions(params): Promise<any[]> {
+  getTransactions(queryString: QueryString): Promise<any[]> {
     const user = this.storageToken.getUser();
-    if(params){
-      params = `&${params}`;
-    }else {params = '';}
+    queryString.user_id = user.id;
+    const params = this.commonService.createParams(queryString);
 
-    return this.http.get<any>(`${this.transactionUrl}/?user_id=${user.id}${params}`)
+
+    return this.http.get<any>(`${this.transactionUrl}/`, {params: params })
       .toPromise()
       .then(response => {
         return response;
@@ -40,7 +43,11 @@ export class TransactionService {
 
   getTransaction(ID): Promise<Account[]> {
     const user = this.storageToken.getUser();
-    return this.http.get<any>(`${this.transactionUrl}/${ID}?user_id=${user.id}`)
+    let queryString = null;
+    queryString.user_id = user.id;
+    const params = this.commonService.createParams(queryString);
+
+    return this.http.get<any>(`${this.transactionUrl}/${ID}?user_id=${user.id}`,{params: params })
       .toPromise()
       .then(response => {
         return response.data;
@@ -59,4 +66,7 @@ export class TransactionService {
   delete(ID): Promise<any> {
     return this.http.delete<Transaction>(`${this.transactionUrl}/${ID}`).toPromise();
   }
+
+
+
 }
